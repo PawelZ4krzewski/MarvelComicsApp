@@ -1,12 +1,15 @@
 package com.example.marvelcomicsapp.data.remote.responses
 
+import kotlinx.parcelize.Parcelize
+
+
 data class Result(
     val characters: Characters,
     val collectedIssues: List<Any>,
     val collections: List<Any>,
     val creators: Creators,
     val dates: List<Date>,
-    val description: Any,
+    val description: String?,
     val diamondCode: String,
     val digitalId: Int,
     val ean: String,

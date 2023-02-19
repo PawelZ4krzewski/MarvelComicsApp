@@ -10,19 +10,29 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.marvelcomicsapp.ui.comiclist.ComicListScreen
+import com.example.marvelcomicsapp.ui.comiclist.ComicListViewModel
 import com.example.marvelcomicsapp.ui.theme.MarvelComicsAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MarvelComicsAppTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting("Android")
+//                Greeting(name = "DUPA")
+                val navControler = rememberNavController()
+                NavHost(
+                    navController = navControler,
+                    startDestination = "comic_list_screen"
+                ){
+                    composable("comic_list_screen"){
+                        ComicListScreen(navController = navControler)
+                    }
                 }
             }
         }

@@ -3,6 +3,8 @@ package com.example.marvelcomicsapp.di
 import com.example.marvelcomicsapp.data.remote.api.ComicApi
 import com.example.marvelcomicsapp.repository.MarvelComicRepository
 import com.example.marvelcomicsapp.util.Constants
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,7 +35,7 @@ object AppModule {
                 .build()
             val request = it.request().newBuilder().url(url)
             val actualRequest = request.build()
-            it.proceed(actualRequest)
+            return@Interceptor it.proceed(actualRequest)
         }
     }
     @Provides
@@ -43,23 +45,26 @@ object AppModule {
         val loggingInterceptor = HttpLoggingInterceptor()
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         val httpBuilder = OkHttpClient.Builder()
-            .addInterceptor(interceptor)
-            .addInterceptor(loggingInterceptor)
             .connectTimeout(10, TimeUnit.SECONDS)
             .readTimeout(15, TimeUnit.SECONDS)
             .writeTimeout(15, TimeUnit.SECONDS)
+            .addInterceptor(interceptor)
+            .addInterceptor(loggingInterceptor)
 
-        return httpBuilder
-            .protocols(mutableListOf(Protocol.HTTP_1_1))
-            .build()
+        return httpBuilder.build()
     }
     @Provides
     @Singleton
     fun provideRetrofitInstance(okHttpClient: OkHttpClient) : Retrofit {
+
+        val moshi = Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     }
 
@@ -73,5 +78,5 @@ object AppModule {
     @Singleton
     fun provideMarvelComicRepository(
         api: ComicApi
-    ) = MarvelComicRepository(api)
+    ): MarvelComicRepository = MarvelComicRepository(api)
 }
