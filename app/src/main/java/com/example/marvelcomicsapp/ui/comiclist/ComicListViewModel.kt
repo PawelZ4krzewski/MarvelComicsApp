@@ -68,7 +68,7 @@ class ComicListViewModel @Inject constructor(
 
                 _state.value = state.value.copy(
                     comicBooks = state.value.comicBooks + result!!.data.results,
-                    endReached = state.value.currentPage * Constants.PAGE_SIZE >= result.data.results.count(),
+                    endReached = state.value.currentPage * Constants.PAGE_SIZE >= result.data.total,
                     currentPage = state.value.currentPage + 1
                 )
                 Log.d("ComicListViewModel", "Correct download data")
