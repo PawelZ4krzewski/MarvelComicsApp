@@ -35,7 +35,6 @@ class ComicListViewModel @Inject constructor(
     private val _state = mutableStateOf(ComicListState())
     val state: State<ComicListState> = _state
 
-
     init {
         loadComicsPaginated()
     }

@@ -33,4 +33,12 @@ class MarvelComicRepository @Inject constructor(
         }
         return response.body()
     }
+
+    suspend fun searchMarvelComic(title: String): MarvelApiData? {
+        val response = api.searchComics(title)
+        if (!response.isSuccessful){
+            throw HttpException(response)
+        }
+        return response.body()
+    }
 }

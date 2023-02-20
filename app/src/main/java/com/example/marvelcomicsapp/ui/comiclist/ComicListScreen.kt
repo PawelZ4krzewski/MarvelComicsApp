@@ -39,6 +39,7 @@ import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
+import com.example.marvelcomicsapp.ui.components.ComicItem
 
 @Composable
 fun ComicListScreen(
@@ -115,7 +116,7 @@ fun ComicListScreen(
                 val creators = if (comics.creators.items.isEmpty()) {
                     "Unknown"
                 }else{
-                    comics.creators.items.map { it.name }.joinToString()
+                    comics.creators.items.joinToString { creator -> creator.name }
                 }
 
                 ComicItem(comics.title, description, creators, imgUrl)
@@ -126,70 +127,4 @@ fun ComicListScreen(
 }
 
 
-@Composable
-fun ComicItem(
-    title: String,
-    description: String,
-    author: String,
-    url: String,
-    cornerRadius: Dp = 7.dp
-){
 
-    Box(
-        modifier = Modifier
-            .shadow(2.dp, RoundedCornerShape(cornerRadius))
-            .background(color = White, shape = RoundedCornerShape(cornerRadius))
-            .fillMaxWidth()
-//            .fillMaxHeight(0.3f)
-            .heightIn(0.dp, 200.dp)
-    ){
-        Row(modifier = Modifier
-            .fillMaxSize()
-        ) {
-            Box(modifier = Modifier
-                .fillMaxHeight()
-                .fillMaxWidth(0.35f)
-            ){
-                SubcomposeAsyncImage(
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data(url)
-                        .crossfade(true)
-                        .build(),
-                    contentDescription = "Comics Book covers",
-                    contentScale = ContentScale.Crop,
-                    loading = {
-                        CircularProgressIndicator(
-                            color = MaterialTheme.colors.primary,
-                            modifier = Modifier.scale(0.5f)
-                        )
-                    },
-                    modifier = Modifier.clip(RoundedCornerShape(cornerRadius)),
-                )
-            }
-            Column( modifier = Modifier
-                .fillMaxHeight()
-                .padding(10.dp)
-            )
-            {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.h6,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = "written by $author",
-                    style = MaterialTheme.typography.body2,
-                    color = Gray
-                )
-
-                Text(
-                    modifier = Modifier.padding(0.dp, 10.dp),
-                    text = description,
-                    style = MaterialTheme.typography.body1,
-                    color = Gray
-                )
-            }
-        }
-    }
-
-}

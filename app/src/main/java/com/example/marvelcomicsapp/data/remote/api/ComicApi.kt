@@ -14,4 +14,10 @@ interface ComicApi {
         @Query("limit") limit: Int,
         @Query("offset") offset: Int
     ): Response<MarvelApiData>
+
+
+    @GET("comics")
+    suspend fun searchComics(
+        @Query("titleStartsWith") titleStartsWith :String
+    ) : Response<MarvelApiData>
 }
