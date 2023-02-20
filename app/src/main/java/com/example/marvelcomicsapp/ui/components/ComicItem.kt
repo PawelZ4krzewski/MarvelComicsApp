@@ -7,6 +7,7 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
@@ -24,13 +25,14 @@ import coil.request.ImageRequest
 fun ComicItem(
     title: String,
     description: String,
+    modifier: Modifier = Modifier,
     author: String,
     url: String,
     cornerRadius: Dp = 7.dp
 ){
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .shadow(2.dp, RoundedCornerShape(cornerRadius))
             .background(color = Color.White, shape = RoundedCornerShape(cornerRadius))
             .fillMaxWidth()
@@ -52,10 +54,15 @@ fun ComicItem(
                     contentDescription = "Comics Book covers",
                     contentScale = ContentScale.Crop,
                     loading = {
-                        CircularProgressIndicator(
-                            color = MaterialTheme.colors.primary,
-                            modifier = Modifier.scale(0.5f)
-                        )
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(
+                                color = MaterialTheme.colors.primary,
+                                modifier = Modifier.scale(0.5f)
+                            )
+                        }
                     },
                     modifier = Modifier.clip(RoundedCornerShape(cornerRadius)),
                 )

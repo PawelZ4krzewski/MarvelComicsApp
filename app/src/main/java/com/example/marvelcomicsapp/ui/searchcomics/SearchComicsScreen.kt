@@ -2,6 +2,7 @@ package com.example.marvelcomicsapp.ui.searchcomics
 
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -30,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.marvelcomicsapp.ui.components.ComicItem
+import com.example.marvelcomicsapp.util.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.format.TextStyle
 
@@ -142,7 +144,16 @@ fun SearchComicsScreen(
                             it.creators.items.joinToString { creator -> creator.name }
                         }
 
-                        ComicItem(it.title, description, creators, imgUrl)
+                        ComicItem(
+                            title = it.title,
+                            description = description,
+                            author = creators,
+                            url = imgUrl,
+                            modifier = Modifier
+                                .clickable {
+                                    navController.navigate(Screen.ComicsDetailsScreen.route + "?comicsBook=${it.id.toString()}")
+                                }
+                        )
                         Spacer(modifier = Modifier.height(16.dp))
                     }
 

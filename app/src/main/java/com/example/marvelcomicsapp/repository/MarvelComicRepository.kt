@@ -41,4 +41,14 @@ class MarvelComicRepository @Inject constructor(
         }
         return response.body()
     }
+
+    suspend fun getComicsById(id: Int): MarvelApiData? {
+        Log.d("Repository", "Przed response")
+        val response = api.getComicsById(id)
+        Log.d("Repository", "$response")
+        if (!response.isSuccessful){
+            throw HttpException(response)
+        }
+        return response.body()
+    }
 }

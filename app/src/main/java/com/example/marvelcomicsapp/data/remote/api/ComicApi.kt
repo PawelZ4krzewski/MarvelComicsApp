@@ -5,6 +5,7 @@ import com.example.marvelcomicsapp.model.ComicApiData
 import com.example.marvelcomicsapp.model.ComicUrl
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ComicApi {
@@ -19,5 +20,10 @@ interface ComicApi {
     @GET("comics")
     suspend fun searchComics(
         @Query("titleStartsWith") titleStartsWith :String
-    ) : Response<MarvelApiData>
+    ): Response<MarvelApiData>
+
+    @GET("comics/{comicId}")
+    suspend fun getComicsById(
+        @Path("comicId") comicId: Int
+    ): Response<MarvelApiData>
 }

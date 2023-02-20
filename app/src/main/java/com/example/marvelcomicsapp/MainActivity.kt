@@ -20,15 +20,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.bumptech.glide.Glide
 import com.example.marvelcomicsapp.ui.comiclist.ComicListScreen
-import com.example.marvelcomicsapp.ui.comiclist.ComicListViewModel
+import com.example.marvelcomicsapp.ui.comicsdetails.ComicsDetailsScreen
 import com.example.marvelcomicsapp.ui.searchcomics.SearchComicsScreen
 import com.example.marvelcomicsapp.ui.theme.MarvelComicsAppTheme
+import com.example.marvelcomicsapp.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -81,12 +84,26 @@ class MainActivity : ComponentActivity() {
 fun Navigation(
     navController: NavHostController
 ) {
-    NavHost(navController = navController, startDestination = "search_comics_screen") {
-        composable("comic_list_screen") {
+    NavHost(navController = navController, startDestination = Screen.ComicListScreen.route) {
+        composable(Screen.ComicListScreen.route) {
             ComicListScreen(navController = navController)
         }
-        composable("search_comics_screen") {
+        composable(Screen.SearchComicListScreen.route) {
             SearchComicsScreen(navController = navController)
+        }
+
+        composable(
+            route = Screen.ComicsDetailsScreen.route + "?comicsBook={comicsBook}",
+            arguments = listOf(
+                navArgument(
+                    name = "comicsBook"
+                ){
+                    type = NavType.IntType
+                    defaultValue = -1
+                }
+            )
+        ){
+            ComicsDetailsScreen(navController = navController)
         }
     }
 

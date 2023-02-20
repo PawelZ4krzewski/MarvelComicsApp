@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -40,6 +41,7 @@ import coil.compose.SubcomposeAsyncImage
 import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
 import com.example.marvelcomicsapp.ui.components.ComicItem
+import com.example.marvelcomicsapp.util.Screen
 
 @Composable
 fun ComicListScreen(
@@ -52,7 +54,7 @@ fun ComicListScreen(
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        Box(modifier = Modifier
+        Row(modifier = Modifier
             .shadow(10.dp, RectangleShape)
             .fillMaxWidth()
             .background(White)
@@ -119,7 +121,18 @@ fun ComicListScreen(
                     comics.creators.items.joinToString { creator -> creator.name }
                 }
 
-                ComicItem(comics.title, description, creators, imgUrl)
+                ComicItem(
+                    title = comics.title,
+                    description = description,
+                    author = creators,
+                    url = imgUrl,
+                    modifier = Modifier
+                        .clickable {
+                            navController.navigate(Screen.ComicsDetailsScreen.route + "?comicsBook=${comics.id}")
+                        }
+
+                    )
+
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
