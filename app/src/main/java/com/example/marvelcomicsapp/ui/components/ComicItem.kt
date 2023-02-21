@@ -15,11 +15,13 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
+import com.example.marvelcomicsapp.R
 
 @Composable
 fun ComicItem(
@@ -29,29 +31,30 @@ fun ComicItem(
     author: String,
     url: String,
     cornerRadius: Dp = 7.dp
-){
+) {
 
     Box(
         modifier = modifier
             .shadow(2.dp, RoundedCornerShape(cornerRadius))
             .background(color = Color.White, shape = RoundedCornerShape(cornerRadius))
             .fillMaxWidth()
-//            .fillMaxHeight(0.3f)
             .heightIn(0.dp, 200.dp)
-    ){
-        Row(modifier = Modifier
-            .fillMaxSize()
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
         ) {
-            Box(modifier = Modifier
-                .fillMaxHeight()
-                .fillMaxWidth(0.35f)
-            ){
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .fillMaxWidth(0.35f)
+            ) {
                 SubcomposeAsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(url)
                         .crossfade(true)
                         .build(),
-                    contentDescription = "Comics Book covers",
+                    contentDescription = stringResource(id = R.string.comics_book_covers),
                     contentScale = ContentScale.Crop,
                     loading = {
                         Box(
@@ -67,30 +70,41 @@ fun ComicItem(
                     modifier = Modifier.clip(RoundedCornerShape(cornerRadius)),
                 )
             }
-            Column( modifier = Modifier
-                .fillMaxHeight()
-                .padding(10.dp)
+            ComicInfo(
+                title = title,
+                author = author,
+                description = description
             )
-            {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.h6,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = "written by $author",
-                    style = MaterialTheme.typography.body2,
-                    color = Color.Gray
-                )
-
-                Text(
-                    modifier = Modifier.padding(0.dp, 10.dp),
-                    text = description,
-                    style = MaterialTheme.typography.body1,
-                    color = Color.Gray
-                )
-            }
         }
     }
+}
 
+@Composable
+fun ComicInfo(
+    title: String,
+    author: String,
+    description: String
+){
+    Column(
+        modifier = Modifier
+            .fillMaxHeight()
+            .padding(10.dp)
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.h6,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text = "${stringResource(id = R.string.written_by)} $author",
+            style = MaterialTheme.typography.body2,
+            color = Color.Gray
+        )
+        Text(
+            modifier = Modifier.padding(0.dp, 10.dp),
+            text = description,
+            style = MaterialTheme.typography.body1,
+            color = Color.Gray
+        )
+    }
 }

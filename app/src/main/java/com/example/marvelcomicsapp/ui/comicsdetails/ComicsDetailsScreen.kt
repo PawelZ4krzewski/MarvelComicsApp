@@ -2,29 +2,23 @@ package com.example.marvelcomicsapp.ui.comicsdetails
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.*
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement.SpaceBetween
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowLeft
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ScopeUpdateScope
-import androidx.compose.runtime.movableContentOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
-import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -33,7 +27,6 @@ import coil.request.ImageRequest
 import com.example.marvelcomicsapp.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @OptIn(ExperimentalMaterialApi::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -41,7 +34,7 @@ import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 fun ComicsDetailsScreen(
     navController: NavController,
     viewModel: ComicsDetailsViewModel = hiltViewModel()
-){
+) {
     val state = viewModel.state.value
 
     val sheetState = rememberBottomSheetState(
@@ -64,13 +57,14 @@ fun ComicsDetailsScreen(
         sheetContent = {
             state.comicBook.let {
                 if (it != null) {
-                    Box( modifier = Modifier
-                        .fillMaxWidth()
-                        .height(600.dp)
-                        .background(Color.Transparent)
-                        .padding(10.dp),
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(600.dp)
+                            .background(Color.Transparent)
+                            .padding(10.dp),
                         contentAlignment = Alignment.TopStart
-                    ){
+                    ) {
                         PeekScaffoldButton(
                             scope = scope,
                             sheetState = sheetState
@@ -78,11 +72,21 @@ fun ComicsDetailsScreen(
 
                         BottomSheet(
                             title = it.title,
-                            creators = if (it.creators.items.isEmpty()) { "Unknown" } else { it.creators.items.joinToString { creator -> creator.name } },
-                            description = if (it.description.isNullOrBlank()) { "" } else{ it.description },
+                            creators = if (it.creators.items.isEmpty()) {
+                                stringResource(id = R.string.unknown)
+                            } else {
+                                it.creators.items.joinToString { creator -> creator.name }
+                            },
+                            description = if (it.description.isNullOrBlank()) {
+                                ""
+                            } else {
+                                it.description
+                            },
                             scroll = scroll,
                             url = it.urls[0].url,
-                            modifier = Modifier.height(600.dp).padding(10.dp)
+                            modifier = Modifier
+                                .height(600.dp)
+                                .padding(10.dp)
                         )
                     }
                 }
@@ -93,8 +97,9 @@ fun ComicsDetailsScreen(
         sheetPeekHeight = 200.dp,
         scaffoldState = bottomSheetScaffoldState
     ) {
-        Column(modifier = Modifier
-            .fillMaxSize()
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
         ) {
             Row(
                 modifier = Modifier
@@ -113,7 +118,7 @@ fun ComicsDetailsScreen(
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(id = R.string.back)
                         )
                     }
                 }
@@ -124,7 +129,7 @@ fun ComicsDetailsScreen(
                 )
                 {
                     Text(
-                        text = "Details",
+                        text = stringResource(id = R.string.details),
                         style = MaterialTheme.typography.h5
                     )
                 }
@@ -132,7 +137,7 @@ fun ComicsDetailsScreen(
             }
             if (state.comicBook != null) {
                 BackgroundImage(
-                    url = "${ state.comicBook.thumbnail.path }.${ state.comicBook.thumbnail.extension}" ,
+                    url = "${state.comicBook.thumbnail.path}.${state.comicBook.thumbnail.extension}",
                     modifier = Modifier.fillMaxSize()
                 )
             }
@@ -147,16 +152,17 @@ fun BottomSheet(
     description: String,
     scroll: ScrollState,
     url: String,
-    modifier: Modifier= Modifier
-){
-    Column(modifier = modifier
-        .fillMaxWidth()
-        .background(Color.Transparent)
-        .fillMaxWidth()
-        .verticalScroll(scroll),
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(Color.Transparent)
+            .fillMaxWidth()
+            .verticalScroll(scroll),
         verticalArrangement = SpaceBetween
     ) {
-        Column{
+        Column {
             Text(
                 text = title,
                 style = MaterialTheme.typography.h5,
@@ -183,7 +189,7 @@ fun BottomSheet(
 fun PeekScaffoldButton(
     scope: CoroutineScope,
     sheetState: BottomSheetState
-){
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth(),
@@ -205,15 +211,17 @@ fun PeekScaffoldButton(
         )
     }
 }
+
 @Composable
 fun MoreInfoButton(
-    url :String
-){
+    url: String
+) {
     val uriHandler = LocalUriHandler.current
-    Box( modifier = Modifier
-        .fillMaxWidth()
-        .background(Color.Transparent)
-        .padding(bottom = 50.dp),
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.Transparent)
+            .padding(bottom = 50.dp),
         contentAlignment = Alignment.BottomCenter
     ) {
         Button(
@@ -227,7 +235,7 @@ fun MoreInfoButton(
             shape = RoundedCornerShape(10.dp)
         ) {
             Text(
-                text = "Find out more",
+                text = stringResource(id = R.string.find_out_more),
                 style = MaterialTheme.typography.body1,
                 color = Color.White
             )
@@ -239,13 +247,13 @@ fun MoreInfoButton(
 fun BackgroundImage(
     url: String,
     modifier: Modifier = Modifier
-){
+) {
     SubcomposeAsyncImage(
         model = ImageRequest.Builder(LocalContext.current)
             .data(url)
             .crossfade(true)
             .build(),
-        contentDescription = "Comics Book covers",
+        contentDescription = stringResource(id = R.string.comics_book_covers),
         contentScale = ContentScale.Crop,
         loading = {
             Box(

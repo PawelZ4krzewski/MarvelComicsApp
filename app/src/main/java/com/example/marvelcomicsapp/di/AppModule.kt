@@ -1,5 +1,6 @@
 package com.example.marvelcomicsapp.di
 
+import androidx.navigation.Navigator
 import com.example.marvelcomicsapp.data.remote.api.ComicApi
 import com.example.marvelcomicsapp.repository.MarvelComicRepository
 import com.example.marvelcomicsapp.util.Constants
@@ -11,11 +12,11 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Protocol
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -24,26 +25,36 @@ object AppModule {
 
     @Provides
     @Singleton
+    @Named("AuthInterceptor")
     fun provideInterceptor(): Interceptor {
         return Interceptor {
             val url = it.request()
                 .url
                 .newBuilder()
-                .addQueryParameter("ts",Constants.ts)
-                .addQueryParameter("apikey",Constants.PUBLIC_KEY)
-                .addQueryParameter("hash",Constants.hashMD5())
+                .addQueryParameter("ts", Constants.ts)
+                .addQueryParameter("apikey", Constants.PUBLIC_KEY)
+                .addQueryParameter("hash", Constants.hashMD5())
                 .build()
             val request = it.request().newBuilder().url(url)
             val actualRequest = request.build()
             return@Interceptor it.proceed(actualRequest)
         }
     }
+
     @Provides
     @Singleton
-    fun provideOkHttpClient(interceptor: Interceptor): OkHttpClient {
-
-        val loggingInterceptor = HttpLoggingInterceptor()
-            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+    @Named("LoggingInterceptor")
+    fun provideLoggingInterceptor(): Interceptor {
+        return HttpLoggingInterceptor().also {
+            it.level = HttpLoggingInterceptor.Level.BODY
+        }
+    }
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(
+        @Named("AuthInterceptor") interceptor: Interceptor,
+        @Named("LoggingInterceptor") loggingInterceptor: Interceptor
+    ): OkHttpClient {
         val httpBuilder = OkHttpClient.Builder()
             .connectTimeout(10, TimeUnit.SECONDS)
             .readTimeout(15, TimeUnit.SECONDS)
@@ -53,9 +64,10 @@ object AppModule {
 
         return httpBuilder.build()
     }
+
     @Provides
     @Singleton
-    fun provideRetrofitInstance(okHttpClient: OkHttpClient) : Retrofit {
+    fun provideRetrofitInstance(okHttpClient: OkHttpClient): Retrofit {
 
         val moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
@@ -70,7 +82,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideComicApi(retrofit: Retrofit): ComicApi{
+    fun provideComicApi(retrofit: Retrofit): ComicApi {
         return retrofit.create(ComicApi::class.java)
     }
 

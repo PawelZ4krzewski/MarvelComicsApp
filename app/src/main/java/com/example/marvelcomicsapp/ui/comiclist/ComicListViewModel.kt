@@ -3,17 +3,11 @@ package com.example.marvelcomicsapp.ui.comiclist
 import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.marvelcomicsapp.data.remote.responses.MarvelApiData
-import com.example.marvelcomicsapp.repository.MarvelComicRepository
 import com.example.marvelcomicsapp.data.remote.responses.Result
-import com.example.marvelcomicsapp.model.ComicApiData
-import com.example.marvelcomicsapp.model.ComicItem
+import com.example.marvelcomicsapp.repository.MarvelComicRepository
 import com.example.marvelcomicsapp.util.Constants
-import com.example.marvelcomicsapp.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -30,7 +24,7 @@ data class ComicListState(
 @HiltViewModel
 class ComicListViewModel @Inject constructor(
     private val repository: MarvelComicRepository
-): ViewModel() {
+) : ViewModel() {
 
     private val _state = mutableStateOf(ComicListState())
     val state: State<ComicListState> = _state
@@ -39,30 +33,14 @@ class ComicListViewModel @Inject constructor(
         loadComicsPaginated()
     }
 
-//    var comicsLiveData = MutableLiveData<MarvelApiData?>()
-
-//    fun getComics(){
-//        viewModelScope.launch {
-//
-//            runCatching { repository.getMarvelComicList() }
-//                .onSuccess {
-//                    comicsLiveData.value = it
-//                    Log.d("ComicListViewModel", "Udalo sie pobrac")
-//                    Log.d("ComicListViewModel", it.toString())
-//                }
-//                .onFailure {
-//                    Log.d("ComicListViewModel", it.toString())
-//                }
-//        }
-//    }
-
     fun loadComicsPaginated() {
         viewModelScope.launch {
 
             try {
                 val result = repository.getMarvelComicList(
                     Constants.PAGE_SIZE,
-                    state.value.currentPage * Constants.PAGE_SIZE)
+                    state.value.currentPage * Constants.PAGE_SIZE
+                )
 
 
                 _state.value = state.value.copy(
@@ -73,7 +51,7 @@ class ComicListViewModel @Inject constructor(
                 Log.d("ComicListViewModel", "Correct download data")
                 Log.d("ComicListViewModel", state.value.toString())
 
-            }catch (e: HttpException){
+            } catch (e: HttpException) {
                 _state.value = state.value.copy(
                     loadError = e.toString()
                 )
