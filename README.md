@@ -1,17 +1,17 @@
 # MarvelComicsApp
 
-Marvel Comics App display a list of Marvel's comics which are taken from <a href="https://www.marvel.com/comics" target="_blank">MarvelAPI</a>. You can search comics by title and click them to see more information. 
+Marvel Comics App displays a list of Marvel's comics which are taken from <a href="https://www.marvel.com/comics" target="_blank">MarvelAPI</a>. You can search comics by title and click them to see more information. 
 You can also visit official marvel comics website clicking on <strong><em>Find out more</strong></em> button.
 
 ## Technologies
 
 Application is written in <a href="https://kotlinlang.org/" target="_blank">Kotlin</a>, <a href="https://github.com/Kotlin/kotlinx.coroutines" target="_blank">Coroutines</a> and <a href="https://developer.android.com/jetpack/compose" target="_blank">Jetpack Compose</a>.
-It's based on MVVM pattern and required minimum SDK 24. 
+It is based on MVVM pattern and requires minimum SDK 24. 
 
 ### 3rd party libraries
-- <a href="https://dagger.dev/hilt/" target="_blank">Hilt</a> - used to dependency injection
+- <a href="https://dagger.dev/hilt/" target="_blank">Hilt</a> - used for dependency injection
 - <a href="https://github.com/square/retrofit" target="_blank">Retrofit2 & OkHttp3</a> - used to fetch data from REST APIs
-- <a href="https://coil-kt.github.io/coil/compose/" target="_blank">Coil</a> - used to loading images from url
+- <a href="https://coil-kt.github.io/coil/compose/" target="_blank">Coil</a> - used for loading images from url
 
 ## User Interface
 <table align="center">
