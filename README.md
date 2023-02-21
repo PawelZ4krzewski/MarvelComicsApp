@@ -6,7 +6,7 @@ You can also visit official marvel comics website clicking on <strong><em>Find o
 ## Technologies
 
 Application is written in <a href="https://kotlinlang.org/" target="_blank">Kotlin</a>, <a href="https://github.com/Kotlin/kotlinx.coroutines" target="_blank">Coroutines</a> and <a href="https://developer.android.com/jetpack/compose" target="_blank">Jetpack Compose</a>.
-It is based on MVVM pattern and requires minimum SDK 24. 
+It is based on MVVM pattern and requires minimum SDK 24. Pagination is used for fetching a data from API.  
 
 ### 3rd party libraries
 - <a href="https://dagger.dev/hilt/" target="_blank">Hilt</a> - used for dependency injection
