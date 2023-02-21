@@ -44,10 +44,9 @@ class SearchComicsViewModel @Inject constructor(
                             isSearched = true,
                             isFoundComics = result.data.results.isNotEmpty()
                         )
-                        Log.d("SearchComicsViewModel", "Correct download data")
                     }
                 } catch (e: HttpException) {
-                    Log.d("SearchComicsViewModel", e.toString())
+                    Log.e("SearchComicsViewModel", e.toString())
                 }
             }
         }

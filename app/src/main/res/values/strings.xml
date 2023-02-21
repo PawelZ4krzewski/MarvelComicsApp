@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">MarvelComicsApp</string>
+    <string name="comic_list">Comics list</string>
+    <string name="comics_book_arg">comicsBook</string>
+    <string name="comics_search">Comics search</string>
     <string name="marvel_comics">Marvel Comics</string>
     <string name="unknown">Unknown</string>
     <string name="details">Details</string>

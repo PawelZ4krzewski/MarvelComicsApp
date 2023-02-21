@@ -3,7 +3,6 @@ package com.example.marvelcomicsapp.repository
 import android.util.Log
 import com.example.marvelcomicsapp.data.remote.api.ComicApi
 import com.example.marvelcomicsapp.data.remote.responses.MarvelApiData
-import dagger.hilt.android.scopes.ActivityScoped
 import retrofit2.HttpException
 import javax.inject.Inject
 

@@ -27,10 +27,7 @@ class ComicsDetailsViewModel @Inject constructor(
 
     init {
         savedStateHandle.get<Int>("comicsBook")?.let { comicsBookId ->
-            Log.d("ComicsDetailsViewModel", "$comicsBookId")
             getComicsById(comicsBookId)
-            Log.d("ComicsDetailsViewModel", "POBRANE ${state.value.comicBook}")
-
         }
     }
 
@@ -43,8 +40,8 @@ class ComicsDetailsViewModel @Inject constructor(
                         comicBook = it!!.data.results.firstOrNull(),
                     )
                 }
-                .onFailure { error: Throwable ->
-                    Log.d("ComicsDetailsViewModel", "Error", error)
+                .onFailure { e: Throwable ->
+                    Log.e("ComicsDetailsViewModel", e.toString())
                 }
         }
     }

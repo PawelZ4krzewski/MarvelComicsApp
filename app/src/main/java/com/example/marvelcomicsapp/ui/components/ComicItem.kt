@@ -84,7 +84,7 @@ fun ComicInfo(
     title: String,
     author: String,
     description: String
-){
+) {
     Column(
         modifier = Modifier
             .fillMaxHeight()

@@ -1,6 +1,5 @@
 package com.example.marvelcomicsapp.ui.comiclist
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -42,20 +41,16 @@ class ComicListViewModel @Inject constructor(
                     state.value.currentPage * Constants.PAGE_SIZE
                 )
 
-
                 _state.value = state.value.copy(
                     comicBooks = state.value.comicBooks + result!!.data.results,
                     endReached = state.value.currentPage * Constants.PAGE_SIZE >= result.data.total,
                     currentPage = state.value.currentPage + 1
                 )
-                Log.d("ComicListViewModel", "Correct download data")
-                Log.d("ComicListViewModel", state.value.toString())
 
             } catch (e: HttpException) {
                 _state.value = state.value.copy(
                     loadError = e.toString()
                 )
-                Log.d("ComicListViewModel", e.toString())
             }
         }
     }

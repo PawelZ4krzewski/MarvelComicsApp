@@ -1,21 +1,17 @@
 package com.example.marvelcomicsapp.ui.components
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.marvelcomicsapp.R
-import com.example.marvelcomicsapp.ui.comiclist.ComicListState
-import com.example.marvelcomicsapp.ui.comiclist.ComicListViewModel
 import com.example.marvelcomicsapp.data.remote.responses.Result
 import com.example.marvelcomicsapp.util.Screen
 
@@ -26,7 +22,7 @@ fun ComicsListLazyColumn(
     loadItems: () -> Unit,
     pagination: Boolean = false,
     endReached: Boolean = false
-){
+) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -41,7 +37,7 @@ fun ComicsListLazyColumn(
 
             itemsIndexed(comicBooks) { index, comics ->
 
-                if(pagination){
+                if (pagination) {
                     if (index >= comicBooks.count() - 1 && !endReached) {
                         loadItems()
                         Box(
@@ -75,7 +71,11 @@ fun ComicsListLazyColumn(
                 ComicItem(
                     title = comics.title,
                     description = description,
-                    author = if (comics.creators.items.isEmpty()) { stringResource(id = R.string.unknown) } else { comics.creators.items.joinToString { creator -> creator.name } },
+                    author = if (comics.creators.items.isEmpty()) {
+                        stringResource(id = R.string.unknown)
+                    } else {
+                        comics.creators.items.joinToString { creator -> creator.name }
+                    },
                     url = imgUrl,
                     modifier = Modifier
                         .clickable {

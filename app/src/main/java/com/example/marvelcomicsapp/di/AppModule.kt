@@ -1,6 +1,5 @@
 package com.example.marvelcomicsapp.di
 
-import androidx.navigation.Navigator
 import com.example.marvelcomicsapp.data.remote.api.ComicApi
 import com.example.marvelcomicsapp.repository.MarvelComicRepository
 import com.example.marvelcomicsapp.util.Constants
@@ -49,6 +48,7 @@ object AppModule {
             it.level = HttpLoggingInterceptor.Level.BODY
         }
     }
+
     @Provides
     @Singleton
     fun provideOkHttpClient(

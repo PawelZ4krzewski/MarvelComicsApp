@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -35,39 +36,31 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MarvelComicsAppTheme {
-                val navControler = rememberNavController()
+                val navController = rememberNavController()
                 Scaffold(
                     bottomBar = {
                         BottomNavigationBar(
                             items = listOf(
                                 BottomNavItem(
-                                    name = "Comics list",
-                                    route = "comic_list_screen",
+                                    name = stringResource(id = R.string.comic_list),
+                                    route = Screen.ComicListScreen.route,
                                     icon = Icons.Default.Home
                                 ),
                                 BottomNavItem(
-                                    name = "Comics search",
-                                    route = "search_comics_screen",
+                                    name = stringResource(id = R.string.comics_search),
+                                    route = Screen.SearchComicListScreen.route,
                                     icon = Icons.Default.Search
                                 )
                             ),
-                            navController = navControler,
+                            navController = navController,
                             onItemClick = {
-                                navControler.navigate(it.route)
+                                navController.navigate(it.route)
                             }
                         )
                     }
                 ) {
-                    Navigation(navController = navControler)
+                    Navigation(navController = navController)
                 }
-//                NavHost(
-//                    navController = navControler,
-//                    startDestination = "comic_list_screen"
-//                ) {
-//                    composable("comic_list_screen") {
-//                        ComicListScreen(navController = navControler)
-//                    }
-//                }
             }
         }
     }

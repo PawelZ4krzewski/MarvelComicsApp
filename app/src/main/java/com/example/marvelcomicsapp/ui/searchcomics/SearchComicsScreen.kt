@@ -2,10 +2,7 @@ package com.example.marvelcomicsapp.ui.searchcomics
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
@@ -26,15 +23,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.marvelcomicsapp.R
-import com.example.marvelcomicsapp.ui.components.ComicItem
 import com.example.marvelcomicsapp.ui.components.ComicsListLazyColumn
-import com.example.marvelcomicsapp.util.Screen
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun SearchComicsScreen(
-    navController: NavController,
-    viewModel: SearchComicsViewModel = hiltViewModel()
+    navController: NavController, viewModel: SearchComicsViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
 
@@ -46,14 +40,10 @@ fun SearchComicsScreen(
     Scaffold(
         topBar = {
             SearchComicsHeader(
-                state = state,
-                focusRequester = focusRequester,
-                focusManager = focusManager
+                state = state, focusRequester = focusRequester, focusManager = focusManager
             )
-        },
-        scaffoldState = scaffoldState
+        }, scaffoldState = scaffoldState
     ) {
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -64,8 +54,7 @@ fun SearchComicsScreen(
             } else {
                 if (state.isFoundComics) {
 
-                    ComicsListLazyColumn(
-                        comicBooks = state.comicBooks,
+                    ComicsListLazyColumn(comicBooks = state.comicBooks,
                         navController = navController,
                         loadItems = { viewModel.searchComicsBook(state.searchComicText) }
                     )
@@ -74,7 +63,6 @@ fun SearchComicsScreen(
                     AnyBooksColumn()
                 }
             }
-
         }
     }
 }
@@ -85,7 +73,7 @@ fun SearchComicsHeader(
     focusRequester: FocusRequester,
     focusManager: FocusManager,
     viewModel: SearchComicsViewModel = hiltViewModel()
-){
+) {
     Row(
         modifier = Modifier
             .padding(20.dp, 20.dp)
@@ -130,7 +118,7 @@ fun SearchComicsHeader(
 
 @Preview
 @Composable
-fun GreetingSearchColumn(){
+fun GreetingSearchColumn() {
     Column(
         modifier = Modifier
             .fillMaxHeight()
@@ -154,7 +142,7 @@ fun GreetingSearchColumn(){
 
 @Preview
 @Composable
-fun AnyBooksColumn(){
+fun AnyBooksColumn() {
     Column(
         modifier = Modifier
             .fillMaxHeight()
@@ -189,8 +177,7 @@ fun TransparentHintTextField(
     searchComics: () -> Unit
 ) {
     Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+        modifier = modifier, verticalAlignment = Alignment.CenterVertically
     ) {
         val searchColor = {
             if (isHintVisible) {
@@ -208,10 +195,8 @@ fun TransparentHintTextField(
                 tint = searchColor.invoke()
             )
         }
-
         Box {
-            BasicTextField(
-                value = text,
+            BasicTextField(value = text,
                 onValueChange = onValueChange,
                 singleLine = singleLine,
                 textStyle = MaterialTheme.typography.h6,
@@ -224,18 +209,12 @@ fun TransparentHintTextField(
                     .focusRequester(focusRequester)
                     .onFocusChanged {
                         onFocusChange(it)
-                    }
-            )
+                    })
             if (isHintVisible) {
                 Text(
-                    text = hint,
-                    style = MaterialTheme.typography.h6,
-                    color = Color.Gray
+                    text = hint, style = MaterialTheme.typography.h6, color = Color.Gray
                 )
             }
         }
-
-
     }
-
 }

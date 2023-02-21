@@ -1,15 +1,10 @@
 package com.example.marvelcomicsapp.ui.comiclist
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color.Companion.White
@@ -21,9 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.marvelcomicsapp.R
-import com.example.marvelcomicsapp.ui.components.ComicItem
 import com.example.marvelcomicsapp.ui.components.ComicsListLazyColumn
-import com.example.marvelcomicsapp.util.Screen
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -52,7 +45,7 @@ fun ComicListScreen(
 
 @Preview
 @Composable
-fun ComicListHeader(){
+fun ComicListHeader() {
     Box(
         modifier = Modifier
             .shadow(20.dp, RectangleShape)
