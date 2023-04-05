@@ -33,6 +33,7 @@ object AppModule {
                 .addQueryParameter("ts", Constants.ts)
                 .addQueryParameter("apikey", Constants.PUBLIC_KEY)
                 .addQueryParameter("hash", Constants.hashMD5())
+                .addQueryParameter("orderBy", "-onsaleDate")
                 .build()
             val request = it.request().newBuilder().url(url)
             val actualRequest = request.build()

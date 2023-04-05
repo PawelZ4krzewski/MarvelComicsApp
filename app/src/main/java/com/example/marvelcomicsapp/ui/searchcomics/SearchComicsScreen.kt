@@ -5,6 +5,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MenuBook
@@ -13,11 +15,15 @@ import androidx.compose.material.icons.filled.SentimentDissatisfied
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -164,6 +170,7 @@ fun AnyBooksColumn() {
     }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun TransparentHintTextField(
     text: String,
@@ -174,8 +181,10 @@ fun TransparentHintTextField(
     singleLine: Boolean = false,
     onFocusChange: (FocusState) -> Unit,
     focusRequester: FocusRequester,
-    searchComics: () -> Unit
+    searchComics: () -> Unit,
+    imeAction: ImeAction = ImeAction.Done,
 ) {
+    val localKeyboardController = LocalSoftwareKeyboardController.current
     Row(
         modifier = modifier, verticalAlignment = Alignment.CenterVertically
     ) {
@@ -209,7 +218,16 @@ fun TransparentHintTextField(
                     .focusRequester(focusRequester)
                     .onFocusChanged {
                         onFocusChange(it)
-                    })
+                    },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = imeAction
+                ),
+                keyboardActions = KeyboardActions {
+                    searchComics()
+                    localKeyboardController?.hide()
+                }
+            )
             if (isHintVisible) {
                 Text(
                     text = hint, style = MaterialTheme.typography.h6, color = Color.Gray
