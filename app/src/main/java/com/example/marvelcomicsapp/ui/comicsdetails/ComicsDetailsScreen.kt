@@ -105,7 +105,7 @@ fun ComicsDetailsScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(Color.White)
-                    .padding(15.dp, 10.dp, 10.dp, 5.dp),
+                    .padding(15.dp, 20.dp, 10.dp, 20.dp),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -130,7 +130,8 @@ fun ComicsDetailsScreen(
                 {
                     Text(
                         text = stringResource(id = R.string.details),
-                        style = MaterialTheme.typography.h5
+                        style = MaterialTheme.typography.h5,
+                        fontWeight = FontWeight.Bold
                     )
                 }
                 Box(Modifier.weight(1f))

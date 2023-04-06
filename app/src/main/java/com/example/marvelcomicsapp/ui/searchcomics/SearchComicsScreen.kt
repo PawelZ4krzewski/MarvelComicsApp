@@ -30,6 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.marvelcomicsapp.R
 import com.example.marvelcomicsapp.ui.components.ComicsListLazyColumn
+import com.example.marvelcomicsapp.ui.theme.Gray300
 import com.example.marvelcomicsapp.ui.theme.LightGray100
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -116,7 +117,7 @@ fun SearchComicsHeader(
                 Text(
                     text = stringResource(id = R.string.cancel),
                     style = MaterialTheme.typography.h6,
-                    color = Color.LightGray
+                    color = Gray300
                 )
             }
         }
@@ -191,9 +192,9 @@ fun TransparentHintTextField(
     ) {
         val searchColor = {
             if (isHintVisible) {
-                Color.Gray
+                Color.LightGray
             } else {
-                Color.Black
+                Color.Gray
             }
         }
         IconButton(onClick = {
