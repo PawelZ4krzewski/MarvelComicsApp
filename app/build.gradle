@@ -6,6 +6,13 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
+def getApiProperties(){
+    Properties properties = new Properties()
+    if (file("../apikey.properties").exists()){
+        properties.load(new FileInputStream(rootProject.file("apikey.properties")))
+    }
+    return properties
+}
 
 
 android {
@@ -24,12 +31,9 @@ android {
             useSupportLibrary true
         }
 
-        Properties properties = new Properties()
-        properties.load(project.rootProject.file("apikey.properties").newDataInputStream())
-
-        buildConfigField "String", "PUBLIC_KEY", System.getenv("PUBLIC_KEY") ?: "\"${properties.getProperty("PUBLIC_KEY")}\""
-        buildConfigField "String", "PRIVATE_KEY", System.getenv("PRIVATE_KEY") ?: "\"${properties.getProperty("PRIVATE_KEY")}\""
-        buildConfigField "String", "BASE_URL", System.getenv("BASE_URL") ?: "\"${properties.getProperty("BASE_URL")}\""
+        buildConfigField "String", "PUBLIC_KEY", System.getenv("PUBLIC_KEY") ?: "\"${apiProperties.getProperty("PUBLIC_KEY")}\""
+        buildConfigField "String", "PRIVATE_KEY", System.getenv("PRIVATE_KEY") ?: "\"${apiProperties.getProperty("PRIVATE_KEY")}\""
+        buildConfigField "String", "BASE_URL", System.getenv("BASE_URL") ?: "\"${apiProperties.getProperty("BASE_URL")}\""
     }
 
     buildTypes {
