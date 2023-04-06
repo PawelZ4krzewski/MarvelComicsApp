@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color.Companion.White
@@ -33,12 +34,21 @@ fun ComicListScreen(
         },
         scaffoldState = scaffoldState
     ) {
-        ComicsListLazyColumn(
-            comicBooks = state.comicBooks,
-            navController = navController,
-            loadItems = { viewModel.loadComicsPaginated() },
-            pagination = true
-        )
+        if (state.comicBooks.isEmpty()){
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                CircularProgressIndicator()
+            }
+        } else{
+            ComicsListLazyColumn(
+                comicBooks = state.comicBooks,
+                navController = navController,
+                loadItems = { viewModel.loadComicsPaginated() },
+                pagination = true
+            )
+        }
     }
 }
 

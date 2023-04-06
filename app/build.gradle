@@ -6,6 +6,8 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
+
+
 android {
     namespace 'com.example.marvelcomicsapp'
     compileSdk 33
@@ -21,6 +23,12 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("apikey.properties").newDataInputStream())
+
+        buildConfigField "String", "PUBLIC_KEY", "\"${properties.getProperty("PUBLIC_KEY")}\""
+        buildConfigField "String", "PRIVATE_KEY", "\"${properties.getProperty("PRIVATE_KEY")}\""
     }
 
     buildTypes {
