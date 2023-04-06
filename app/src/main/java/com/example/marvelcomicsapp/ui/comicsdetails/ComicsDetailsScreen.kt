@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
@@ -30,6 +31,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.example.marvelcomicsapp.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -264,30 +267,18 @@ fun MoreInfoButton(
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun BackgroundImage(
     url: String,
     modifier: Modifier = Modifier
 ) {
-    SubcomposeAsyncImage(
-        model = ImageRequest.Builder(LocalContext.current)
-            .data(url)
-            .crossfade(true)
-            .build(),
+
+    GlideImage(
+        model = url,
         contentDescription = stringResource(id = R.string.comics_book_covers),
-        contentScale = ContentScale.Crop,
-        loading = {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator(
-                    color = MaterialTheme.colors.primary,
-                    modifier = Modifier.scale(0.5f)
-                )
-            }
-        },
-        modifier = modifier
+        modifier = modifier,
+        contentScale = ContentScale.Crop
     )
 }
 

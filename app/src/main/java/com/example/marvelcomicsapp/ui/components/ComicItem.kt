@@ -19,10 +19,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import coil.compose.SubcomposeAsyncImage
-import coil.request.ImageRequest
+import com.bumptech.glide.GlideBuilder
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.example.marvelcomicsapp.R
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun ComicItem(
     title: String,
@@ -49,25 +51,11 @@ fun ComicItem(
                     .fillMaxHeight()
                     .fillMaxWidth(0.35f)
             ) {
-                SubcomposeAsyncImage(
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data(url)
-                        .crossfade(true)
-                        .build(),
+                GlideImage(
+                    model = url,
                     contentDescription = stringResource(id = R.string.comics_book_covers),
-                    contentScale = ContentScale.Crop,
-                    loading = {
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            CircularProgressIndicator(
-                                color = MaterialTheme.colors.primary,
-                                modifier = Modifier.scale(0.5f)
-                            )
-                        }
-                    },
                     modifier = Modifier.clip(RoundedCornerShape(cornerRadius)),
+                    contentScale = ContentScale.Crop
                 )
             }
             ComicInfo(
