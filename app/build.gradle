@@ -29,6 +29,7 @@ android {
 
         buildConfigField "String", "PUBLIC_KEY", "\"${properties.getProperty("PUBLIC_KEY")}\""
         buildConfigField "String", "PRIVATE_KEY", "\"${properties.getProperty("PRIVATE_KEY")}\""
+        buildConfigField "String", "BASE_URL", "\"${properties.getProperty("BASE_URL")}\""
     }
 
     buildTypes {

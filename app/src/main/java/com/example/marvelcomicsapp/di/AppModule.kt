@@ -1,5 +1,6 @@
 package com.example.marvelcomicsapp.di
 
+import com.example.marvelcomicsapp.BuildConfig
 import com.example.marvelcomicsapp.data.remote.api.ComicApi
 import com.example.marvelcomicsapp.repository.MarvelComicRepository
 import com.example.marvelcomicsapp.util.Constants
@@ -31,7 +32,7 @@ object AppModule {
                 .url
                 .newBuilder()
                 .addQueryParameter("ts", Constants.ts)
-                .addQueryParameter("apikey", Constants.PUBLIC_KEY)
+                .addQueryParameter("apikey", BuildConfig.PUBLIC_KEY)
                 .addQueryParameter("hash", Constants.hashMD5())
                 .build()
             val request = it.request().newBuilder().url(url)
@@ -74,7 +75,7 @@ object AppModule {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
