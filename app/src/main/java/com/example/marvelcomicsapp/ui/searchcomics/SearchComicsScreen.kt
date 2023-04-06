@@ -30,6 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.marvelcomicsapp.R
 import com.example.marvelcomicsapp.ui.components.ComicsListLazyColumn
+import com.example.marvelcomicsapp.ui.theme.LightGray100
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -104,7 +105,7 @@ fun SearchComicsHeader(
             isHintVisible = state.isSearchComicHintVisible,
             singleLine = true,
             modifier = Modifier
-                .background(Color.LightGray, RoundedCornerShape(7.dp))
+                .background(LightGray100, RoundedCornerShape(7.dp))
                 .padding(5.dp)
         )
         if (!state.isSearchComicHintVisible) {
