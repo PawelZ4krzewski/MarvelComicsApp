@@ -95,6 +95,7 @@ fun SearchComicsHeader(
             hint = state.searchComicHint,
             onValueChange = {
                 viewModel.onEvent(SearchComicsEvent.EnterText(it))
+                viewModel.onEvent(SearchComicsEvent.SearchComics)
             },
             onFocusChange = {
                 viewModel.onEvent(SearchComicsEvent.ChangeText(it))
