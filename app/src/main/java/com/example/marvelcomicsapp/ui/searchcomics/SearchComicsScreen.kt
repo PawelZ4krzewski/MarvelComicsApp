@@ -19,11 +19,14 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.*
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -137,7 +140,7 @@ fun GreetingSearchColumn() {
         verticalArrangement = Arrangement.Center
     ) {
         Icon(
-            imageVector = Icons.Default.MenuBook,
+            painter = painterResource(id = R.drawable.vector_book),
             contentDescription = stringResource(id = R.string.book),
             tint = Color.LightGray,
             modifier = Modifier.fillMaxSize(0.3f)
@@ -147,6 +150,7 @@ fun GreetingSearchColumn() {
             text = stringResource(id = R.string.start_typing_to_find),
             style = MaterialTheme.typography.h6
         )
+        Spacer(modifier = Modifier.height(175.dp))
     }
 }
 
@@ -156,12 +160,13 @@ fun AnyBooksColumn() {
     Column(
         modifier = Modifier
             .fillMaxHeight()
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(horizontal = 25.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Icon(
-            imageVector = Icons.Default.SentimentDissatisfied,
+            painter = painterResource(id = R.drawable.anybook),
             contentDescription = stringResource(id = R.string.sad_face),
             tint = Color.LightGray,
             modifier = Modifier.fillMaxSize(0.3f)
@@ -169,8 +174,10 @@ fun AnyBooksColumn() {
 
         Text(
             text = stringResource(id = R.string.cant_find_comics),
-            style = MaterialTheme.typography.h6
+            style = MaterialTheme.typography.h6,
+            textAlign = TextAlign.Center
         )
+        Spacer(modifier = Modifier.height(200.dp))
     }
 }
 
