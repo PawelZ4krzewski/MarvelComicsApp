@@ -15,6 +15,6 @@
     <string name="search_icon">Search Icon</string>
     <string name="sad_face">Sad face</string>
     <string name="start_typing_to_find">Start typing to find a particular comics</string>
-    <string name="cant_find_comics">Can\'t find comics with this title</string>
+    <string name="cant_find_comics">There is no comic book with that name in our library. Check the spelling and try again.</string>
     <string name="comic_cover_placeholder">https://i.pinimg.com/736x/b5/34/df/b534df05c4b06ebd32159b2f9325d83f.jpg</string>
 </resources>
