@@ -203,13 +203,7 @@ fun TransparentHintTextField(
     Row(
         modifier = modifier, verticalAlignment = Alignment.CenterVertically
     ) {
-        val searchColor = {
-            if (isHintVisible) {
-                Gray300
-            } else {
-                Gray400
-            }
-        }
+        val searchColor = { if (isHintVisible) Gray300 else Gray400 }
         IconButton(onClick = {
             searchComics()
         }) {
