@@ -17,6 +17,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.GlideBuilder
@@ -86,7 +87,10 @@ fun ComicInfo(
         Text(
             text = "${stringResource(id = R.string.written_by)} $author",
             style = MaterialTheme.typography.body2,
-            color = Color.Gray
+            color = Color.Gray,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+            softWrap = true
         )
         Text(
             modifier = Modifier.padding(0.dp, 10.dp),
