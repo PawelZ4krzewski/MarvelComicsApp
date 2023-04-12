@@ -34,6 +34,7 @@ import androidx.navigation.NavController
 import com.example.marvelcomicsapp.R
 import com.example.marvelcomicsapp.ui.components.ComicsListLazyColumn
 import com.example.marvelcomicsapp.ui.theme.Gray300
+import com.example.marvelcomicsapp.ui.theme.Gray400
 import com.example.marvelcomicsapp.ui.theme.LightGray100
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -204,9 +205,9 @@ fun TransparentHintTextField(
     ) {
         val searchColor = {
             if (isHintVisible) {
-                Color.LightGray
+                Gray300
             } else {
-                Color.Gray
+                Gray400
             }
         }
         IconButton(onClick = {
@@ -219,7 +220,8 @@ fun TransparentHintTextField(
             )
         }
         Box {
-            BasicTextField(value = text,
+            TextField(
+                value = text,
                 onValueChange = onValueChange,
                 singleLine = singleLine,
                 textStyle = MaterialTheme.typography.h6,
@@ -232,7 +234,8 @@ fun TransparentHintTextField(
                     .focusRequester(focusRequester)
                     .onFocusChanged {
                         onFocusChange(it)
-                    },
+                    }
+                    .align(Alignment.Center),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text,
                     imeAction = imeAction
@@ -240,13 +243,21 @@ fun TransparentHintTextField(
                 keyboardActions = KeyboardActions {
                     searchComics()
                     localKeyboardController?.hide()
+                },
+                colors = TextFieldDefaults.textFieldColors(
+                    textColor = searchColor.invoke(),
+                    backgroundColor = Color.Transparent,
+                    cursorColor = Color.Black,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent
+                ),
+                placeholder = {
+                    Text(
+                        text = hint, style = MaterialTheme.typography.h6, color = searchColor.invoke(), maxLines = 1
+                    )
                 }
             )
-            if (isHintVisible) {
-                Text(
-                    text = hint, style = MaterialTheme.typography.h6, color = Color.Gray
-                )
-            }
         }
     }
 }
