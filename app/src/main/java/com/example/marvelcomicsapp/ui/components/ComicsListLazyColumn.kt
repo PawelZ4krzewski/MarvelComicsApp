@@ -32,13 +32,18 @@ fun ComicsListLazyColumn(
             Modifier
                 .fillMaxSize()
                 .padding(
-                    15.dp,
-                    0.dp
+                    top = 0.dp,
+                    start = 15.dp,
+                    end = 15.dp,
+                    bottom = 50.dp
                 )
         ) {
 
             itemsIndexed(comicBooks) { index, comics ->
 
+                if(index == 0){
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
 
                 val description = if (comics.description.isNullOrBlank()) {
                     ""

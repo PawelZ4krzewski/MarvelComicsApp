@@ -66,7 +66,6 @@ fun SearchComicsScreen(
                         navController = navController,
                         loadItems = { viewModel.searchComicsBook(state.searchComicText) }
                     )
-
                 } else {
                     AnyBooksColumn()
                 }
