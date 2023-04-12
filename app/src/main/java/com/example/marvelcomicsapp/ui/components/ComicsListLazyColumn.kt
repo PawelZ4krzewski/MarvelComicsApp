@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.marvelcomicsapp.R
 import com.example.marvelcomicsapp.data.remote.responses.Result
+import com.example.marvelcomicsapp.ui.theme.Red100
 import com.example.marvelcomicsapp.util.Screen
 
 @Composable
@@ -88,7 +89,7 @@ fun ComicsListLazyColumn(
                             contentAlignment = Alignment.Center,
                             modifier = Modifier.fillMaxSize()
                         ) {
-                            CircularProgressIndicator( color = Color.Red)
+                            CircularProgressIndicator( color = Red100)
                         }
                         Spacer(modifier = Modifier.height(100.dp))
                     }
