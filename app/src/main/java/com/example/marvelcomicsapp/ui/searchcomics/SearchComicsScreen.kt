@@ -113,7 +113,10 @@ fun SearchComicsHeader(
         )
         if (!state.isSearchComicHintVisible) {
             TextButton(onClick = {
-                viewModel.onEvent(SearchComicsEvent.EnterText(""))
+                viewModel.apply{
+                    onEvent(SearchComicsEvent.EnterText(""))
+                    onEvent(SearchComicsEvent.CancelSearching)
+                }
                 focusManager.clearFocus()
             }) {
                 Text(

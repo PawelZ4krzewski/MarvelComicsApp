@@ -7,4 +7,5 @@ sealed class SearchComicsEvent {
     data class ChangeText(val focusState: FocusState) : SearchComicsEvent()
 
     object SearchComics : SearchComicsEvent()
+    object CancelSearching : SearchComicsEvent()
 }
