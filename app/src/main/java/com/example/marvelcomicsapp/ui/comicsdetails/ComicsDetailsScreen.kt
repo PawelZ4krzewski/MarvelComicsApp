@@ -12,16 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,11 +25,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import coil.compose.SubcomposeAsyncImage
-import coil.request.ImageRequest
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.marvelcomicsapp.R
+import com.example.marvelcomicsapp.ui.components.HtmlText
+import com.example.marvelcomicsapp.ui.theme.Red100
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -192,10 +188,11 @@ fun BottomSheet(
                 fontWeight = FontWeight.Light,
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 5.dp)
             )
-            Text(
-                text = description,
-                style = MaterialTheme.typography.h6,
+            HtmlText(
+                html = description,
+                style = MaterialTheme.typography.h6
             )
+
         }
     }
 }
@@ -227,7 +224,6 @@ fun PeekScaffoldButton(
         )
     }
 }
-
 @Composable
 fun MoreInfoButton(
     url: String
@@ -254,7 +250,7 @@ fun MoreInfoButton(
                 .height(50.dp)
                 .width(300.dp)
                 ,
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
+            colors = ButtonDefaults.buttonColors(backgroundColor = Red100),
             shape = RoundedCornerShape(10.dp)
         ) {
             Text(

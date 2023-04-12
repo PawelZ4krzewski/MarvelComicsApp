@@ -26,6 +26,7 @@ import com.example.marvelcomicsapp.ui.comiclist.ComicListScreen
 import com.example.marvelcomicsapp.ui.comicsdetails.ComicsDetailsScreen
 import com.example.marvelcomicsapp.ui.searchcomics.SearchComicsScreen
 import com.example.marvelcomicsapp.ui.theme.MarvelComicsAppTheme
+import com.example.marvelcomicsapp.ui.theme.Red100
 import com.example.marvelcomicsapp.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -114,7 +115,7 @@ fun BottomNavigationBar(
             BottomNavigationItem(
                 selected = selected,
                 onClick = { onItemClick(item) },
-                selectedContentColor = androidx.compose.ui.graphics.Color.Red,
+                selectedContentColor = Red100,
                 unselectedContentColor = androidx.compose.ui.graphics.Color.LightGray,
                 icon = {
                     Column(horizontalAlignment = CenterHorizontally) {
