@@ -179,7 +179,7 @@ fun BottomSheet(
             .verticalScroll(scroll),
         verticalArrangement = SpaceBetween
     ) {
-        Column {
+        Column( modifier = Modifier.padding(bottom = 125.dp)){
             Text(
                 text = title,
                 style = MaterialTheme.typography.h5,
