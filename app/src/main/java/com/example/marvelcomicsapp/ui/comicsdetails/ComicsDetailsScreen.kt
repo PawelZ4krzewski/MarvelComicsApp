@@ -28,8 +28,12 @@ import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.marvelcomicsapp.R
+<<<<<<< Updated upstream
 import com.example.marvelcomicsapp.ui.components.HtmlText
 import com.example.marvelcomicsapp.ui.theme.Red100
+=======
+import com.example.marvelcomicsapp.ui.theme.Gray400
+>>>>>>> Stashed changes
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -185,7 +189,7 @@ fun BottomSheet(
             Text(
                 text = creators,
                 style = MaterialTheme.typography.body1,
-                fontWeight = FontWeight.Light,
+                color = Gray400,
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 5.dp)
             )
             HtmlText(

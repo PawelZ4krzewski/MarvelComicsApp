@@ -4,14 +4,11 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.SentimentDissatisfied
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -19,7 +16,6 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.*
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
@@ -34,7 +30,7 @@ import androidx.navigation.NavController
 import com.example.marvelcomicsapp.R
 import com.example.marvelcomicsapp.ui.components.ComicsListLazyColumn
 import com.example.marvelcomicsapp.ui.theme.Gray300
-import com.example.marvelcomicsapp.ui.theme.Gray400
+import com.example.marvelcomicsapp.ui.theme.Gray500
 import com.example.marvelcomicsapp.ui.theme.LightGray100
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -203,7 +199,7 @@ fun TransparentHintTextField(
     Row(
         modifier = modifier, verticalAlignment = Alignment.CenterVertically
     ) {
-        val searchColor = { if (isHintVisible) Gray300 else Gray400 }
+        val searchColor = { if (isHintVisible) Gray300 else Gray500 }
         IconButton(onClick = {
             searchComics()
         }) {
