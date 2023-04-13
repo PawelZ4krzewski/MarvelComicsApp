@@ -180,7 +180,8 @@ fun BottomSheet(
         Column( modifier = Modifier.padding(bottom = 125.dp)){
             Text(
                 text = title,
-                style = MaterialTheme.typography.h6,
+                style = MaterialTheme.typography.h5,
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(0.dp, 7.dp),
             )
             if(!creators.isNullOrBlank()){
