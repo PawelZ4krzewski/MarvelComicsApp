@@ -31,7 +31,7 @@ fun ComicItem(
     title: String,
     description: String,
     modifier: Modifier = Modifier,
-    author: String,
+    author: String?,
     url: String,
     cornerRadius: Dp = 7.dp
 ) {
@@ -71,7 +71,7 @@ fun ComicItem(
 @Composable
 fun ComicInfo(
     title: String,
-    author: String,
+    author: String?,
     description: String
 ) {
     Column(
@@ -84,14 +84,16 @@ fun ComicInfo(
             style = MaterialTheme.typography.h6,
             fontWeight = FontWeight.Bold
         )
-        Text(
-            text = "${stringResource(id = R.string.written_by)} $author",
-            style = MaterialTheme.typography.body2,
-            color = Color.Gray,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis,
-            softWrap = true
-        )
+        if(!author.isNullOrBlank()){
+            Text(
+                text = "${stringResource(id = R.string.written_by)} $author",
+                style = MaterialTheme.typography.body2,
+                color = Color.Gray,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+                softWrap = true
+            )
+        }
         Text(
             modifier = Modifier.padding(0.dp, 10.dp),
             text = description,

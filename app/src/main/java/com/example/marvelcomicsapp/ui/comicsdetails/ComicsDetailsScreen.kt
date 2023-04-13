@@ -86,7 +86,7 @@ fun ComicsDetailsScreen(
                             BottomSheet(
                                 title = it.title,
                                 creators = if (it.creators.items.isEmpty()) {
-                                    stringResource(id = R.string.unknown)
+                                    null
                                 } else {
                                     it.creators.items.joinToString { creator -> creator.name }
                                 },
@@ -163,7 +163,7 @@ fun ComicsDetailsScreen(
 @Composable
 fun BottomSheet(
     title: String,
-    creators: String,
+    creators: String?,
     description: String,
     scroll: ScrollState,
     modifier: Modifier = Modifier
@@ -183,17 +183,18 @@ fun BottomSheet(
                 modifier = Modifier.padding(0.dp, 7.dp),
                 fontWeight = FontWeight.Bold
             )
-            Text(
-                text = creators,
-                style = MaterialTheme.typography.body1,
-                color = Gray400,
-                modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 5.dp)
-            )
+            if(!creators.isNullOrBlank()){
+                Text(
+                    text = creators,
+                    style = MaterialTheme.typography.body1,
+                    color = Gray400,
+                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 5.dp)
+                )
+            }
             HtmlText(
                 html = description,
                 style = MaterialTheme.typography.h6
             )
-
         }
     }
 }

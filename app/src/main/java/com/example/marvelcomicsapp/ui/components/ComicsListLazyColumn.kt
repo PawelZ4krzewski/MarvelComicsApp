@@ -68,7 +68,7 @@ fun ComicsListLazyColumn(
                     title = comics.title,
                     description = description,
                     author = if (comics.creators.items.isEmpty()) {
-                        stringResource(id = R.string.unknown)
+                        null
                     } else {
                         comics.creators.items.joinToString { creator -> creator.name }
                     },
