@@ -18,6 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.marvelcomicsapp.R
 import com.example.marvelcomicsapp.ui.components.ComicsListLazyColumn
+import com.example.marvelcomicsapp.ui.theme.HeaderComicList
 import com.example.marvelcomicsapp.ui.theme.Red100
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -66,8 +67,7 @@ fun ComicListHeader() {
     ) {
         Text(
             text = stringResource(id = R.string.marvel_comics),
-            style = MaterialTheme.typography.h4,
-            fontWeight = FontWeight.Bold
+            style = MaterialTheme.typography.HeaderComicList,
         )
     }
 }

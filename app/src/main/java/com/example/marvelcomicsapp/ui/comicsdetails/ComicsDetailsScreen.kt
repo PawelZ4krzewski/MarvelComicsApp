@@ -29,6 +29,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.marvelcomicsapp.R
 import com.example.marvelcomicsapp.ui.components.HtmlText
+import com.example.marvelcomicsapp.ui.theme.ComicTitle
 import com.example.marvelcomicsapp.ui.theme.Red100
 import com.example.marvelcomicsapp.ui.theme.Gray400
 import kotlinx.coroutines.CoroutineScope
@@ -179,9 +180,8 @@ fun BottomSheet(
         Column( modifier = Modifier.padding(bottom = 125.dp)){
             Text(
                 text = title,
-                style = MaterialTheme.typography.h5,
+                style = MaterialTheme.typography.h6,
                 modifier = Modifier.padding(0.dp, 7.dp),
-                fontWeight = FontWeight.Bold
             )
             if(!creators.isNullOrBlank()){
                 Text(
