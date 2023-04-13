@@ -55,6 +55,7 @@ fun SearchComicsScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .imePadding()
                 .background(Color.White)
         ) {
             if (!state.isSearched) {
@@ -134,8 +135,7 @@ fun SearchComicsHeader(
 fun GreetingSearchColumn() {
     Column(
         modifier = Modifier
-            .fillMaxHeight()
-            .fillMaxWidth(),
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -150,7 +150,7 @@ fun GreetingSearchColumn() {
             text = stringResource(id = R.string.start_typing_to_find),
             style = MaterialTheme.typography.h6
         )
-        Spacer(modifier = Modifier.height(175.dp))
+        Spacer(modifier = Modifier.height(100.dp))
     }
 }
 
@@ -159,8 +159,7 @@ fun GreetingSearchColumn() {
 fun AnyBooksColumn() {
     Column(
         modifier = Modifier
-            .fillMaxHeight()
-            .fillMaxWidth()
+            .fillMaxSize()
             .padding(horizontal = 25.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -177,7 +176,7 @@ fun AnyBooksColumn() {
             style = MaterialTheme.typography.h6,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.height(200.dp))
+        Spacer(modifier = Modifier.height(100.dp))
     }
 }
 
