@@ -4,17 +4,22 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowCompat
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -38,26 +43,33 @@ class MainActivity : ComponentActivity() {
         setContent {
             MarvelComicsAppTheme {
                 val navController = rememberNavController()
+                WindowCompat.setDecorFitsSystemWindows(window,false)
+
+                val isKeyboardOpen by keyboardAsState()
+
                 Scaffold(
+                    modifier = Modifier.statusBarsPadding().systemBarsPadding(),
                     bottomBar = {
-                        BottomNavigationBar(
-                            items = listOf(
-                                BottomNavItem(
-                                    name = stringResource(id = R.string.comic_list),
-                                    route = Screen.ComicListScreen.route,
-                                    icon = Icons.Default.Home
+                        if(!isKeyboardOpen) {
+                            BottomNavigationBar(
+                                items = listOf(
+                                    BottomNavItem(
+                                        name = stringResource(id = R.string.comic_list),
+                                        route = Screen.ComicListScreen.route,
+                                        icon = Icons.Default.Home
+                                    ),
+                                    BottomNavItem(
+                                        name = stringResource(id = R.string.comics_search),
+                                        route = Screen.SearchComicListScreen.route,
+                                        icon = Icons.Default.Search
+                                    )
                                 ),
-                                BottomNavItem(
-                                    name = stringResource(id = R.string.comics_search),
-                                    route = Screen.SearchComicListScreen.route,
-                                    icon = Icons.Default.Search
-                                )
-                            ),
-                            navController = navController,
-                            onItemClick = {
-                                navController.navigate(it.route)
-                            }
-                        )
+                                navController = navController,
+                                onItemClick = {
+                                    navController.navigate(it.route)
+                                }
+                            )
+                        }
                     }
                 ) {
                     Navigation(navController = navController)
@@ -104,6 +116,7 @@ fun BottomNavigationBar(
     onItemClick: (BottomNavItem) -> Unit
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()
+
     BottomNavigation(
         modifier = modifier,
         backgroundColor = androidx.compose.ui.graphics.Color.White,
@@ -136,3 +149,9 @@ data class BottomNavItem(
     val route: String,
     val icon: ImageVector
 )
+
+@Composable
+fun keyboardAsState(): State<Boolean> {
+    val isImeVisible = WindowInsets.ime.getBottom(LocalDensity.current) > 0
+    return rememberUpdatedState(isImeVisible)
+}
