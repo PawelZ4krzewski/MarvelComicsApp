@@ -62,7 +62,7 @@ class SearchComicsViewModel @Inject constructor(
             }
             is SearchComicsEvent.ChangeText -> {
                 _state.value = state.value.copy(
-                    isSearchComicHintVisible = !event.focusState.isFocused && state.value.searchComicText.isBlank()
+                    isSearchComicHintVisible = state.value.searchComicText.isBlank()
                 )
             }
             is SearchComicsEvent.SearchComics -> {
