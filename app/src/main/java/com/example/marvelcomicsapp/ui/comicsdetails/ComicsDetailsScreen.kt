@@ -29,9 +29,8 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.marvelcomicsapp.R
 import com.example.marvelcomicsapp.ui.components.HtmlText
-import com.example.marvelcomicsapp.ui.theme.ComicTitle
-import com.example.marvelcomicsapp.ui.theme.Red100
 import com.example.marvelcomicsapp.ui.theme.Gray400
+import com.example.marvelcomicsapp.ui.theme.Red100
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
