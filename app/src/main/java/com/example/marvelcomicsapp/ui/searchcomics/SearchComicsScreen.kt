@@ -9,13 +9,20 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.*
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
@@ -33,6 +40,7 @@ import com.example.marvelcomicsapp.ui.theme.Gray300
 import com.example.marvelcomicsapp.ui.theme.Gray500
 import com.example.marvelcomicsapp.ui.theme.LightGray100
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun SearchComicsScreen(
@@ -45,10 +53,16 @@ fun SearchComicsScreen(
 
     val scaffoldState = rememberScaffoldState()
 
+    val topAppBarState = rememberTopAppBarState()
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(
+        state = topAppBarState
+    )
+
     Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             SearchComicsHeader(
-                state = state, focusRequester = focusRequester, focusManager = focusManager
+                state = state, focusRequester = focusRequester, focusManager = focusManager, scrollBehavior = scrollBehavior
             )
         }, scaffoldState = scaffoldState
     ) {
@@ -75,15 +89,23 @@ fun SearchComicsScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchComicsHeader(
     state: SearchComicsState,
     focusRequester: FocusRequester,
     focusManager: FocusManager,
+    scrollBehavior: TopAppBarScrollBehavior,
     viewModel: SearchComicsViewModel = hiltViewModel()
 ) {
     Row(
-        modifier = Modifier
+        modifier = if (scrollBehavior.state.contentOffset < -10f) {
+            Modifier.shadow(elevation = 20.dp, shape = RectangleShape)
+                .background(Color.White)
+                .fillMaxWidth()
+                .padding(20.dp, 20.dp)
+                .padding(5.dp)
+        } else Modifier
             .padding(20.dp, 20.dp)
             .fillMaxWidth()
             .padding(5.dp),
