@@ -4,14 +4,18 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -20,6 +24,7 @@ import com.example.marvelcomicsapp.ui.components.ComicsListLazyColumn
 import com.example.marvelcomicsapp.ui.theme.HeaderComicList
 import com.example.marvelcomicsapp.ui.theme.Red100
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ComicListScreen(
@@ -29,10 +34,15 @@ fun ComicListScreen(
     val state = viewModel.state.value
     val scaffoldState = rememberScaffoldState()
 
-    Scaffold(
+    val topAppBarState = rememberTopAppBarState()
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(
+        state = topAppBarState
+    )
 
+    Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            ComicListHeader()
+            ComicListHeader(scrollBehavior = scrollBehavior)
         },
         scaffoldState = scaffoldState
     ) {
@@ -55,12 +65,18 @@ fun ComicListScreen(
 }
 
 
-@Preview
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ComicListHeader() {
+fun ComicListHeader(
+    scrollBehavior: TopAppBarScrollBehavior
+) {
     Box(
-        modifier = Modifier
-            .shadow(20.dp, RectangleShape)
+        modifier = if (scrollBehavior.state.contentOffset < -10f) {
+            Modifier.shadow(elevation = 20.dp, shape = RectangleShape)
+                .fillMaxWidth()
+                .background(White)
+                .padding(15.dp, 20.dp, 10.dp, 5.dp)
+        } else Modifier
             .fillMaxWidth()
             .background(White)
             .padding(15.dp, 20.dp, 10.dp, 5.dp)
