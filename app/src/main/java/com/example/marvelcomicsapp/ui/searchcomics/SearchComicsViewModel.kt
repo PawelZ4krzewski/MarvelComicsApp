@@ -8,8 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.marvelcomicsapp.data.remote.responses.Result
 import com.example.marvelcomicsapp.repository.MarvelComicRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import javax.inject.Inject
@@ -26,7 +24,7 @@ data class SearchComicsState(
 
 @HiltViewModel
 class SearchComicsViewModel @Inject constructor(
-    private val repository: MarvelComicRepository,
+    private val repository: MarvelComicRepository
 ) : ViewModel() {
 
     private val _state: MutableState<SearchComicsState> = mutableStateOf(SearchComicsState())

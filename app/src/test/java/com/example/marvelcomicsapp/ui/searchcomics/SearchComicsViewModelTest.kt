@@ -2,6 +2,7 @@ package com.example.marvelcomicsapp.ui.searchcomics
 
 import com.example.marvelcomicsapp.data.remote.responses.*
 import com.example.marvelcomicsapp.repository.MarvelComicRepository
+import com.example.marvelcomicsapp.util.MainCoroutineRule
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.*
@@ -10,8 +11,6 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestWatcher
-import org.junit.runner.Description
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import strikt.api.expectThat
@@ -99,20 +98,5 @@ class SearchComicsViewModelTest{
             get(SearchComicsState::isSearchComicHintVisible).isTrue()
         }
 
-    }
-}
-
-@ExperimentalCoroutinesApi
-class MainCoroutineRule(private val dispatcher: TestDispatcher = StandardTestDispatcher()) :
-    TestWatcher() {
-
-    override fun starting(description: Description) {
-        super.starting(description)
-        Dispatchers.setMain(dispatcher)
-    }
-
-    override fun finished(description: Description) {
-        super.finished(description)
-        Dispatchers.resetMain()
     }
 }

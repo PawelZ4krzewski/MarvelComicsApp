@@ -123,7 +123,6 @@ dependencies {
     testImplementation "io.mockk:mockk:1.9.3"
 
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1") {
-        // https://github.com/Kotlin/kotlinx.coroutines/tree/master/kotlinx-coroutines-debug#debug-agent-and-android
         exclude group: "org.jetbrains.kotlinx", module: "kotlinx-coroutines-debug"
     }
 

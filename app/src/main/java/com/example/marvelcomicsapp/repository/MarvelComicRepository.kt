@@ -36,8 +36,3 @@ class MarvelComicRepository @Inject constructor(
     }
 }
 
-interface MarvelComicRepositoryInterface {
-     suspend fun getMarvelComicList(limit: Int, offset: Int): MarvelApiData?
-     suspend fun searchMarvelComic(title: String): MarvelApiData?
-     suspend fun getComicsById(id: Int): MarvelApiData?
-}
