@@ -122,4 +122,20 @@ dependencies {
     //mockk
     testImplementation "io.mockk:mockk:1.9.3"
 
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1") {
+        // https://github.com/Kotlin/kotlinx.coroutines/tree/master/kotlinx-coroutines-debug#debug-agent-and-android
+        exclude group: "org.jetbrains.kotlinx", module: "kotlinx-coroutines-debug"
+    }
+
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+
+    // assertion library
+    // cannot use 0.34.0 due to an existing bug
+    // https://github.com/robfletcher/strikt/issues/259
+    testImplementation 'io.strikt:strikt-core:0.33.0'
+    testImplementation 'io.strikt:strikt-mockk:0.33.0'
+    androidTestImplementation 'io.strikt:strikt-core:0.33.0'
+
 }

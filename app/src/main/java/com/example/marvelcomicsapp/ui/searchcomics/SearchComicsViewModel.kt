@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.marvelcomicsapp.data.remote.responses.Result
 import com.example.marvelcomicsapp.repository.MarvelComicRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -25,7 +26,7 @@ data class SearchComicsState(
 
 @HiltViewModel
 class SearchComicsViewModel @Inject constructor(
-    private val repository: MarvelComicRepository
+    private val repository: MarvelComicRepository,
 ) : ViewModel() {
 
     private val _state: MutableState<SearchComicsState> = mutableStateOf(SearchComicsState())
@@ -33,11 +34,10 @@ class SearchComicsViewModel @Inject constructor(
 
 
     fun searchComicsBook(query: String) {
-        viewModelScope.launch(Dispatchers.Default) {
+        viewModelScope.launch {
             if (query.isNotEmpty()) {
                 try {
                     val result = repository.searchMarvelComic(query)
-
                     if (result != null) {
                         _state.value = state.value.copy(
                             comicBooks = result.data.results,
