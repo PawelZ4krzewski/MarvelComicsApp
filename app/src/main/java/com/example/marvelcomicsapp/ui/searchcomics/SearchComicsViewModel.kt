@@ -72,7 +72,8 @@ class SearchComicsViewModel @Inject constructor(
             is SearchComicsEvent.CancelSearching -> {
                 _state.value = state.value.copy(
                     comicBooks = listOf(),
-                    isSearched = false
+                    isSearched = false,
+                    isSearchComicHintVisible = true
                 )
             }
         }
