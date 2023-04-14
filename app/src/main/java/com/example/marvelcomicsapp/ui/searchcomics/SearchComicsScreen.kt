@@ -97,11 +97,10 @@ fun SearchComicsHeader(
                 viewModel.apply {
                     onEvent(SearchComicsEvent.EnterText(it))
                     onEvent(SearchComicsEvent.SearchComics)
+                    onEvent(SearchComicsEvent.ChangeText)
                 }
             },
-            onFocusChange = {
-                viewModel.onEvent(SearchComicsEvent.ChangeText(it))
-            },
+            onFocusChange = {},
             focusRequester = focusRequester,
             searchComics = {
                 viewModel.onEvent(SearchComicsEvent.SearchComics)
