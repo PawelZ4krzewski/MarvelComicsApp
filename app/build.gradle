@@ -116,4 +116,10 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.3.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
+    //JUnit
+    testImplementation 'junit:junit:4.13.2'
+
+    //mockk
+    testImplementation "io.mockk:mockk:1.9.3"
+
 }
