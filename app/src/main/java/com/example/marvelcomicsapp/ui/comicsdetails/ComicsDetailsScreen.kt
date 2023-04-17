@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
@@ -29,6 +30,8 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.marvelcomicsapp.R
 import com.example.marvelcomicsapp.ui.components.HtmlText
+import com.example.marvelcomicsapp.ui.theme.ComicDescriptionList
+import com.example.marvelcomicsapp.ui.theme.ComicTitle
 import com.example.marvelcomicsapp.ui.theme.Gray400
 import com.example.marvelcomicsapp.ui.theme.Red100
 import kotlinx.coroutines.CoroutineScope
@@ -130,8 +133,9 @@ fun ComicsDetailsScreen(
                     {
                         IconButton(onClick = { navController.navigateUp() }) {
                             Icon(
-                                imageVector = Icons.Default.ArrowBack,
-                                contentDescription = stringResource(id = R.string.back)
+                                modifier = Modifier.size(20.dp),
+                                painter = painterResource(id = R.drawable.icon_arrowback),
+                                contentDescription = stringResource(id = R.string.back),
                             )
                         }
                     }
@@ -179,7 +183,7 @@ fun BottomSheet(
         Column( modifier = Modifier.padding(bottom = 125.dp)){
             Text(
                 text = title,
-                style = MaterialTheme.typography.h5,
+                style = MaterialTheme.typography.ComicTitle,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(0.dp, 7.dp),
             )
@@ -249,15 +253,15 @@ fun MoreInfoButton(
                 uriHandler.openUri(url)
             },
             modifier = Modifier
-                .height(50.dp)
-                .width(300.dp)
+                .height(70.dp)
+                .width(370.dp)
                 ,
             colors = ButtonDefaults.buttonColors(backgroundColor = Red100),
             shape = RoundedCornerShape(10.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.find_out_more),
-                style = MaterialTheme.typography.body1,
+                style = MaterialTheme.typography.h6,
                 color = Color.White,
                 fontWeight = FontWeight.Bold
             )

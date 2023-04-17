@@ -37,7 +37,7 @@ fun ComicItem(
             .shadow(2.dp, RoundedCornerShape(cornerRadius))
             .background(color = Color.White, shape = RoundedCornerShape(cornerRadius))
             .fillMaxWidth()
-            .heightIn(0.dp, 200.dp)
+            .height(250.dp)
     ) {
         Row(
             modifier = Modifier
@@ -46,10 +46,10 @@ fun ComicItem(
             Box(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .fillMaxWidth(0.35f)
+                    .fillMaxWidth(0.4f)
             ) {
                 GlideImage(
-                    model = url,
+                    model = url.ifEmpty { R.drawable.placeholder_cover },
                     contentDescription = stringResource(id = R.string.comics_book_covers),
                     modifier = Modifier.clip(RoundedCornerShape(cornerRadius)),
                     contentScale = ContentScale.Crop
