@@ -61,7 +61,7 @@ fun ComicsListLazyColumn(
                 val imgUrl = if (comics.images.isNotEmpty()) {
                     "${comics.images[0].path}.${comics.images[0].extension}"
                 } else {
-                    stringResource(id = R.string.comic_cover_placeholder)
+                    ""
                 }
 
                 ComicItem(
