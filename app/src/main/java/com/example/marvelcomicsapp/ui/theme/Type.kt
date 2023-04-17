@@ -35,7 +35,7 @@ val Typography.HeaderComicList: TextStyle
         return  TextStyle(
             fontFamily = FontFamily.Default,
             fontWeight = FontWeight.W700,
-            fontSize = 36.sp,
+            fontSize = 28.sp,
             lineHeight = 18.sp
         )
     }
@@ -46,7 +46,7 @@ get() {
     return  TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.W500,
-        fontSize = 20.sp,
+        fontSize = 18.sp,
         lineHeight = 21.sp
     )
 }
@@ -57,7 +57,7 @@ get() {
     return  TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.W400,
-        fontSize = 16.sp,
+        fontSize = 14.sp,
         lineHeight = 18.sp
     )
 }
@@ -69,6 +69,17 @@ get() {
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.W400,
         fontSize = 16.sp,
-        lineHeight = 18.sp
+        lineHeight = 21.sp
     )
 }
+
+val Typography.SearchBoxText: TextStyle
+    @Composable
+    get() {
+        return  TextStyle(
+            fontFamily = FontFamily.Default,
+            fontWeight = FontWeight.Normal,
+            fontSize = 20.sp,
+            letterSpacing = 0.15.sp
+        )
+    }
