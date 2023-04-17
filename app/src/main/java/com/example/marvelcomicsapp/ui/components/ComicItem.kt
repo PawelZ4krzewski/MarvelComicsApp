@@ -49,7 +49,7 @@ fun ComicItem(
                     .fillMaxWidth(0.4f)
             ) {
                 GlideImage(
-                    model = url,
+                    model = url.ifEmpty { R.drawable.placeholder_cover },
                     contentDescription = stringResource(id = R.string.comics_book_covers),
                     modifier = Modifier.clip(RoundedCornerShape(cornerRadius)),
                     contentScale = ContentScale.Crop
