@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <style name="Theme.MarvelComicsApp.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/background_blue</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_background</item>
+        <item name="postSplashScreenTheme">@style/Theme.MarvelComicsApp</item>
+    </style>
+</resources>
