@@ -224,7 +224,7 @@ fun TransparentHintTextField(
             searchComics()
         }) {
             Icon(
-                imageVector = Icons.Default.Search,
+                painter = painterResource(id = R.drawable.search_icon),
                 contentDescription = stringResource(id = R.string.search_icon),
                 tint = searchColor.invoke()
             )
