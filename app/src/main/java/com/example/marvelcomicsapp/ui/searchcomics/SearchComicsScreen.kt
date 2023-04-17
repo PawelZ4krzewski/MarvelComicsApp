@@ -27,6 +27,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -39,6 +40,7 @@ import com.example.marvelcomicsapp.ui.components.ComicsListLazyColumn
 import com.example.marvelcomicsapp.ui.theme.Gray300
 import com.example.marvelcomicsapp.ui.theme.Gray500
 import com.example.marvelcomicsapp.ui.theme.LightGray100
+import com.example.marvelcomicsapp.ui.theme.SearchBoxText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -143,7 +145,7 @@ fun SearchComicsHeader(
             }) {
                 Text(
                     text = stringResource(id = R.string.cancel),
-                    style = MaterialTheme.typography.h6,
+                    style = MaterialTheme.typography.SearchBoxText,
                     color = Gray300
                 )
             }
@@ -234,7 +236,7 @@ fun TransparentHintTextField(
                 value = text,
                 onValueChange = onValueChange,
                 singleLine = singleLine,
-                textStyle = MaterialTheme.typography.h6,
+                textStyle = MaterialTheme.typography.SearchBoxText,
                 modifier = Modifier
                     .fillMaxWidth(
                         if (isHintVisible) {
