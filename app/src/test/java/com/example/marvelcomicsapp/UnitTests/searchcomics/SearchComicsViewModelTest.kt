@@ -1,9 +1,12 @@
-package com.example.marvelcomicsapp.ui.searchcomics
+package com.example.marvelcomicsapp.UnitTests.searchcomics
 
 import android.app.Application
 import androidx.lifecycle.SavedStateHandle
 import com.example.marvelcomicsapp.data.remote.responses.*
 import com.example.marvelcomicsapp.repository.MarvelComicRepository
+import com.example.marvelcomicsapp.ui.searchcomics.SearchComicsEvent
+import com.example.marvelcomicsapp.ui.searchcomics.SearchComicsState
+import com.example.marvelcomicsapp.ui.searchcomics.SearchComicsViewModel
 import com.example.marvelcomicsapp.util.MainCoroutineRule
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
@@ -31,35 +34,37 @@ class SearchComicsViewModelTest{
     private lateinit var viewModel: SearchComicsViewModel
 
     @MockK
-    private val fakeMarvelRepository = mockk<MarvelComicRepository>()
+    private var fakeResult = mockk<Result>(relaxed = true)
 
     @MockK
-    private val fakeMarvelApiData = mockk<MarvelApiData>(relaxed = true)
+    private var fakeData = mockk<Data>(relaxed = true)
 
     @MockK
-    private val fakeData = mockk<Data>(relaxed = true)
+    private var fakeMarvelApiData = mockk<MarvelApiData>(relaxed = true)
 
     @MockK
-    private val fakeResult = mockk<Result>(relaxed = true)
+    private var fakeMarvelRepository = mockk<MarvelComicRepository>()
 
     @Before
     fun setup(){
 
-        fakeResult.apply {
-            every { creators } returns Creators(listOf(CreatorItem("Adam"),CreatorItem("Jacob")),2)
-            every { title } returns "Spider-man"
-            every { description } returns "Description"
-        }
+        fakeResult = fakeResult.copy(
+            creators = Creators(listOf(CreatorItem("Adam"),CreatorItem("Jacob")),2),
+            title = "Spider-man",
+            description = "Description"
+        )
 
-        fakeData.apply {
-            every { results } returns listOf(fakeResult, fakeResult, fakeResult)
-        }
 
-        fakeMarvelApiData.apply {
-            every { data } returns fakeData
-        }
+        fakeData = fakeData.copy(
+             results  =  listOf(fakeResult, fakeResult, fakeResult)
+        )
 
-        fakeMarvelRepository.apply {
+        fakeMarvelApiData = fakeMarvelApiData.copy(
+             data = fakeData
+        )
+
+
+        with(fakeMarvelRepository){
             coEvery {
                 getMarvelComicList(2,0)
             } returns fakeMarvelApiData
