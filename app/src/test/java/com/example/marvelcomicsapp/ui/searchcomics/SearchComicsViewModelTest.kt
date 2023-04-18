@@ -1,5 +1,6 @@
 package com.example.marvelcomicsapp.ui.searchcomics
 
+import androidx.lifecycle.SavedStateHandle
 import com.example.marvelcomicsapp.data.remote.responses.*
 import com.example.marvelcomicsapp.repository.MarvelComicRepository
 import com.example.marvelcomicsapp.util.MainCoroutineRule
@@ -67,7 +68,7 @@ class SearchComicsViewModelTest{
             } returns fakeMarvelApiData
         }
 
-        viewModel = SearchComicsViewModel(fakeMarvelRepository)
+        viewModel = SearchComicsViewModel(fakeMarvelRepository, SavedStateHandle())
     }
 
     @Test
