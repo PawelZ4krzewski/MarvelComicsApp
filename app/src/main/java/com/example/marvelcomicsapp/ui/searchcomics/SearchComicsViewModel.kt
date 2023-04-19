@@ -77,6 +77,11 @@ class SearchComicsViewModel @Inject constructor(
                 } catch (e: HttpException) {
                     Log.e("SearchComicsViewModel", e.toString())
                 }
+            }else {
+                _state.value = state.value.copy(
+                    comicBooks = listOf(),
+                    isSearched = false,
+                )
             }
         }
     }
