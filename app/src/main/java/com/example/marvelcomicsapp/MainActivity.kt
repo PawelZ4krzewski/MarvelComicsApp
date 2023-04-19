@@ -1,7 +1,6 @@
 package com.example.marvelcomicsapp
 
 import android.annotation.SuppressLint
-import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -70,7 +69,7 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 ) {
-                    Navigation(navController = navController, Application())
+                    Navigation(navController = navController)
                 }
             }
         }
@@ -81,7 +80,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Navigation(
     navController: NavHostController,
-    app: Application
 ) {
     NavHost(navController = navController, startDestination = Screen.ComicListScreen.route) {
         composable(Screen.ComicListScreen.route) {
