@@ -30,10 +30,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.marvelcomicsapp.R
 import com.example.marvelcomicsapp.ui.components.HtmlText
-import com.example.marvelcomicsapp.ui.theme.ComicDescriptionList
-import com.example.marvelcomicsapp.ui.theme.ComicTitle
-import com.example.marvelcomicsapp.ui.theme.Gray400
-import com.example.marvelcomicsapp.ui.theme.Red100
+import com.example.marvelcomicsapp.ui.theme.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -217,7 +214,7 @@ fun PeekScaffoldButton(
         Box(modifier = Modifier
             .fillMaxWidth(0.20f)
             .height(7.5.dp)
-            .background(Color.LightGray, RoundedCornerShape(10.dp))
+            .background(LightGray200, RoundedCornerShape(10.dp))
             .clickable {
                 scope.launch {
                     if (sheetState.isCollapsed) {
