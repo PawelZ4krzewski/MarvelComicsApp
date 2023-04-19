@@ -1,6 +1,5 @@
 package com.example.marvelcomicsapp.data.remote.responses
 
-
 data class Result(
     val creators: Creators,
     val description: String?,

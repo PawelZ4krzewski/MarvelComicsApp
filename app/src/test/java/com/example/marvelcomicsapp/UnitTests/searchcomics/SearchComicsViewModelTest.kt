@@ -1,5 +1,6 @@
 package com.example.marvelcomicsapp.UnitTests.searchcomics
 
+import android.app.Application
 import com.example.marvelcomicsapp.data.remote.responses.*
 import com.example.marvelcomicsapp.repository.MarvelComicRepository
 import com.example.marvelcomicsapp.ui.searchcomics.SearchComicsEvent
@@ -72,7 +73,7 @@ class SearchComicsViewModelTest{
             } returns fakeMarvelApiData
         }
 
-        viewModel = SearchComicsViewModel(fakeMarvelRepository)
+        viewModel = SearchComicsViewModel(fakeMarvelRepository, Application())
     }
 
     @Test

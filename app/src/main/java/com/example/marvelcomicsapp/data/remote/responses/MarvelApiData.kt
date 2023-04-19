@@ -1,6 +1,5 @@
 package com.example.marvelcomicsapp.data.remote.responses
 
-
 data class MarvelApiData(
     val attributionHTML: String,
     val attributionText: String,

@@ -6,17 +6,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -81,11 +74,12 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
 }
 
 @Composable
 fun Navigation(
-    navController: NavHostController
+    navController: NavHostController,
 ) {
     NavHost(navController = navController, startDestination = Screen.ComicListScreen.route) {
         composable(Screen.ComicListScreen.route) {
@@ -109,7 +103,6 @@ fun Navigation(
             ComicsDetailsScreen(navController = navController)
         }
     }
-
 }
 
 @Composable
