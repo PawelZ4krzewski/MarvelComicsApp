@@ -8,7 +8,6 @@ import com.example.marvelcomicsapp.ui.searchcomics.SearchComicsState
 import com.example.marvelcomicsapp.ui.searchcomics.SearchComicsViewModel
 import com.example.marvelcomicsapp.util.MainCoroutineRule
 import io.mockk.*
-import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import org.junit.Assert.*
@@ -32,17 +31,15 @@ class SearchComicsViewModelTest{
 
     private lateinit var viewModel: SearchComicsViewModel
 
-    @MockK
     private var fakeResult = mockk<Result>(relaxed = true)
 
-    @MockK
     private var fakeData = mockk<Data>(relaxed = true)
 
-    @MockK
     private var fakeMarvelApiData = mockk<MarvelApiData>(relaxed = true)
 
-    @MockK
     private var fakeMarvelRepository = mockk<MarvelComicRepository>()
+
+    private var myContext = mockk<Application>(relaxed = true)
 
     @Before
     fun setup(){
@@ -73,7 +70,7 @@ class SearchComicsViewModelTest{
             } returns fakeMarvelApiData
         }
 
-        viewModel = SearchComicsViewModel(fakeMarvelRepository, Application())
+        viewModel = SearchComicsViewModel(fakeMarvelRepository, myContext)
     }
 
     @Test

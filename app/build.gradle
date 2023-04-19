@@ -142,5 +142,4 @@ dependencies {
     testImplementation 'io.strikt:strikt-core:0.33.0'
     testImplementation 'io.strikt:strikt-mockk:0.33.0'
     androidTestImplementation 'io.strikt:strikt-core:0.33.0'
-
 }
