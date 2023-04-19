@@ -1,7 +1,6 @@
 package com.example.marvelcomicsapp.UnitTests.searchcomics
 
 import android.app.Application
-import androidx.lifecycle.SavedStateHandle
 import com.example.marvelcomicsapp.data.remote.responses.*
 import com.example.marvelcomicsapp.repository.MarvelComicRepository
 import com.example.marvelcomicsapp.ui.searchcomics.SearchComicsEvent
