@@ -3,15 +3,11 @@ package com.example.marvelcomicsapp.ui.searchcomics
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Parcelable
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
 import com.example.marvelcomicsapp.data.remote.responses.Result
 import com.example.marvelcomicsapp.repository.MarvelComicRepository
@@ -19,11 +15,9 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import kotlinx.parcelize.Parcelize
 import retrofit2.HttpException
 import javax.inject.Inject
 
-@Parcelize
 data class SearchComicsState(
     val searchComicText: String = "",
     val searchComicHint: String = "Search for a comic book",
@@ -32,13 +26,13 @@ data class SearchComicsState(
     val isSearched: Boolean = false,
     val comicBooks: List<Result> = emptyList(),
     val isFoundComics: Boolean = false
-) : Parcelable
+)
 
 @HiltViewModel
 class SearchComicsViewModel @Inject constructor(
     private val repository: MarvelComicRepository,
-    private val app: Application
-) : AndroidViewModel(app), DefaultLifecycleObserver {
+    app: Application,
+) : AndroidViewModel(app) {
 
     private val COMIC_TEXT_KEY = "ComicTextKEY"
     private val SEARCH_COMICS_KEY = "SearchComicListKEY"
@@ -55,12 +49,14 @@ class SearchComicsViewModel @Inject constructor(
 
     init {
         val comicsText = pref.getString(COMIC_TEXT_KEY, "") ?: ""
+        val prefsComics = gson.fromJson<List<Result>>(pref.getString(SEARCH_COMICS_KEY, ""), object : TypeToken<List<Result>>() {}.type)
+
         _state.value = state.value.copy(
             searchComicText = comicsText,
-            comicBooks = gson.fromJson(pref.getString(SEARCH_COMICS_KEY, ""),
-                object : TypeToken<List<Result>>() {}.type) ?: listOf(),
+            comicBooks = prefsComics ?: listOf(),
+            isSearchComicHintVisible = comicsText.isBlank(),
             isSearched = comicsText.isNotBlank(),
-            isFoundComics = comicsText.isNotBlank()
+            isFoundComics = !prefsComics.isNullOrEmpty()
         )
 
     }
@@ -76,8 +72,7 @@ class SearchComicsViewModel @Inject constructor(
                             isSearched = true,
                             isFoundComics = result.data.results.isNotEmpty()
                         )
-                        editor.putString(SEARCH_COMICS_KEY, gson.toJson(state.value.comicBooks))
-                        editor.commit()
+                        editor.putString(SEARCH_COMICS_KEY, gson.toJson(state.value.comicBooks)).commit()
                     }
                 } catch (e: HttpException) {
                     Log.e("SearchComicsViewModel", e.toString())
@@ -93,8 +88,7 @@ class SearchComicsViewModel @Inject constructor(
                 _state.value = state.value.copy(
                     searchComicText = event.text
                 )
-                editor.putString(COMIC_TEXT_KEY, event.text)
-                editor.commit()
+                editor.putString(COMIC_TEXT_KEY, event.text).commit()
             }
             is SearchComicsEvent.ChangeText -> {
                 _state.value = state.value.copy(
@@ -115,15 +109,4 @@ class SearchComicsViewModel @Inject constructor(
         }
     }
 
-    override fun onDestroy(owner: LifecycleOwner) {
-
-        Toast.makeText(app, "onDestroy from ViewModel  MainActivity", Toast.LENGTH_SHORT).show();
-
-        val pref: SharedPreferences =
-            app.getSharedPreferences("SearchVMSharedPrefs", Context.MODE_PRIVATE)
-        pref.edit().clear().apply()
-
-        super.onDestroy(owner)
-
-    }
 }
