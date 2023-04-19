@@ -9,8 +9,8 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.marvelcomicsapp.data.remote.responses.Result
-import com.example.marvelcomicsapp.repository.MarvelComicRepository
+import com.example.core.data.remote.responses.Result
+import com.example.core.repository.MarvelComicRepository
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel

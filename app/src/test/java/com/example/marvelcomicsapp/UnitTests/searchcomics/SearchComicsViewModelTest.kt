@@ -2,7 +2,7 @@ package com.example.marvelcomicsapp.UnitTests.searchcomics
 
 import android.app.Application
 import com.example.marvelcomicsapp.data.remote.responses.*
-import com.example.marvelcomicsapp.repository.MarvelComicRepository
+import com.example.core.repository.MarvelComicRepository
 import com.example.marvelcomicsapp.ui.searchcomics.SearchComicsEvent
 import com.example.marvelcomicsapp.ui.searchcomics.SearchComicsState
 import com.example.marvelcomicsapp.ui.searchcomics.SearchComicsViewModel
@@ -31,13 +31,13 @@ class SearchComicsViewModelTest{
 
     private lateinit var viewModel: SearchComicsViewModel
 
-    private var fakeResult = mockk<Result>(relaxed = true)
+    private var fakeResult = mockk<com.example.core.remote.responses.Result>(relaxed = true)
 
-    private var fakeData = mockk<Data>(relaxed = true)
+    private var fakeData = mockk<com.example.core.remote.responses.Data>(relaxed = true)
 
-    private var fakeMarvelApiData = mockk<MarvelApiData>(relaxed = true)
+    private var fakeMarvelApiData = mockk<com.example.core.remote.responses.MarvelApiData>(relaxed = true)
 
-    private var fakeMarvelRepository = mockk<MarvelComicRepository>()
+    private var fakeMarvelRepository = mockk<com.example.core.repository.MarvelComicRepository>()
 
     private var myContext = mockk<Application>(relaxed = true)
 
@@ -45,7 +45,13 @@ class SearchComicsViewModelTest{
     fun setup(){
 
         fakeResult = fakeResult.copy(
-            creators = Creators(listOf(CreatorItem("Adam"),CreatorItem("Jacob")),2),
+            creators = com.example.core.remote.responses.Creators(
+                listOf(
+                    com.example.core.remote.responses.CreatorItem(
+                        "Adam"
+                    ), com.example.core.remote.responses.CreatorItem("Jacob")
+                ), 2
+            ),
             title = "Spider-man",
             description = "Description"
         )

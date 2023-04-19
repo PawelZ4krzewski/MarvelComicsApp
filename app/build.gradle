@@ -7,15 +7,6 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
-def getApiProperties(){
-    Properties properties = new Properties()
-    if (file("../apikey.properties").exists()){
-        properties.load(new FileInputStream(rootProject.file("apikey.properties")))
-    }
-    return properties
-}
-
-
 android {
     namespace 'com.example.marvelcomicsapp'
     compileSdk 33
@@ -31,10 +22,6 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
-
-        buildConfigField "String", "PUBLIC_KEY", System.getenv("PUBLIC_KEY") ?: "\"${apiProperties.getProperty("PUBLIC_KEY")}\""
-        buildConfigField "String", "PRIVATE_KEY", System.getenv("PRIVATE_KEY") ?: "\"${apiProperties.getProperty("PRIVATE_KEY")}\""
-        buildConfigField "String", "BASE_URL", System.getenv("BASE_URL") ?: "\"${apiProperties.getProperty("BASE_URL")}\""
     }
 
     buildTypes {
@@ -66,7 +53,7 @@ android {
 }
 
 dependencies {
-
+    implementation project(":core")
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'

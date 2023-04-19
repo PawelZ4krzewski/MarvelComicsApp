@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement.SpaceBetween
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -33,10 +31,9 @@ import com.example.marvelcomicsapp.ui.components.HtmlText
 import com.example.marvelcomicsapp.ui.theme.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-
+@Composable
 @OptIn(ExperimentalMaterialApi::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@Composable
 fun ComicsDetailsScreen(
     navController: NavController,
     viewModel: ComicsDetailsViewModel = hiltViewModel()
@@ -90,11 +87,7 @@ fun ComicsDetailsScreen(
                                 } else {
                                     it.creators.items.joinToString { creator -> creator.name }
                                 },
-                                description = if (it.description.isNullOrBlank()) {
-                                    ""
-                                } else {
-                                    it.description
-                                },
+                                description = it.description ?: "",
                                 scroll = scroll,
                                 modifier = Modifier
                                     .height(600.dp)

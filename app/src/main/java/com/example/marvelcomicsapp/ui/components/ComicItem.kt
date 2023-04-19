@@ -94,7 +94,10 @@ fun ComicInfo(
             modifier = Modifier.padding(0.dp, 10.dp),
             text = description,
             style = MaterialTheme.typography.ComicDescriptionList,
-            color = DarkGray600
+            color = DarkGray600,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+            softWrap = true
         )
     }
 }

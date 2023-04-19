@@ -14,9 +14,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.marvelcomicsapp.R
-import com.example.marvelcomicsapp.data.remote.responses.Result
+import com.example.core.data.remote.responses.Result
 import com.example.marvelcomicsapp.ui.theme.Red100
-import com.example.marvelcomicsapp.util.Screen
+import com.example.core.util.Screen
 
 @Composable
 fun ComicsListLazyColumn(
@@ -46,17 +46,6 @@ fun ComicsListLazyColumn(
                     Spacer(modifier = Modifier.height(16.dp))
                 }
 
-                val description = if (comics.description.isNullOrBlank()) {
-                    ""
-                } else {
-
-                    if (comics.description.count() >= 100) {
-                        comics.description.take(100) + "..."
-                    } else {
-                        comics.description
-                    }
-
-                }
 
                 val imgUrl = if (comics.images.isNotEmpty()) {
                     "${comics.images[0].path}.${comics.images[0].extension}"
@@ -66,7 +55,7 @@ fun ComicsListLazyColumn(
 
                 ComicItem(
                     title = comics.title,
-                    description = description,
+                    description = comics.description ?: "",
                     author = if (comics.creators.items.isEmpty()) {
                         null
                     } else {

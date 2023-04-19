@@ -28,7 +28,7 @@ import com.example.marvelcomicsapp.ui.comicsdetails.ComicsDetailsScreen
 import com.example.marvelcomicsapp.ui.searchcomics.SearchComicsScreen
 import com.example.marvelcomicsapp.ui.theme.MarvelComicsAppTheme
 import com.example.marvelcomicsapp.ui.theme.Red100
-import com.example.marvelcomicsapp.util.Screen
+import com.example.core.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
