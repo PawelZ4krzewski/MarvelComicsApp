@@ -1,4 +1,4 @@
-package com.example.marvelcomicsapp.ui.comicsdetails
+package com.example.feature_main.ui.comicsdetails
 
 import android.util.Log
 import androidx.compose.runtime.State

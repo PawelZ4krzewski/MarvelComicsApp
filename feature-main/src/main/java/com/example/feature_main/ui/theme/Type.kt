@@ -1,4 +1,4 @@
-package com.example.marvelcomicsapp.ui.theme
+package com.example.feature_main.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable

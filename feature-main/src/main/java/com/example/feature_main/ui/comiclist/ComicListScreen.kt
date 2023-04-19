@@ -1,4 +1,4 @@
-package com.example.marvelcomicsapp.ui.comiclist
+package com.example.feature_main.ui.comiclist
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -19,10 +19,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.marvelcomicsapp.R
-import com.example.marvelcomicsapp.ui.components.ComicsListLazyColumn
-import com.example.marvelcomicsapp.ui.theme.HeaderComicList
-import com.example.marvelcomicsapp.ui.theme.Red100
+import com.example.feature_main.R
+import com.example.feature_main.ui.components.ComicsListLazyColumn
+import com.example.feature_main.ui.theme.HeaderComicList
+import com.example.feature_main.ui.theme.Red100
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")

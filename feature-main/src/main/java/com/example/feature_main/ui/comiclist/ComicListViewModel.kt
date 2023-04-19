@@ -1,4 +1,4 @@
-package com.example.marvelcomicsapp.ui.comiclist
+package com.example.feature_main.ui.comiclist
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

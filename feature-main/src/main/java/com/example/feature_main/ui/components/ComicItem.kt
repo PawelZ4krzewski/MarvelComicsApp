@@ -1,4 +1,4 @@
-package com.example.marvelcomicsapp.ui.components
+package com.example.feature_main.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.example.marvelcomicsapp.R
-import com.example.marvelcomicsapp.ui.theme.*
+import com.example.feature_main.ui.theme.*
+import com.example.feature_main.R
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable

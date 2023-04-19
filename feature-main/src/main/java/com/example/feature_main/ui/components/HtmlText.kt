@@ -1,4 +1,4 @@
-package com.example.marvelcomicsapp.ui.components
+package com.example.feature_main.ui.components
 
 import android.widget.TextView
 import androidx.compose.runtime.Composable

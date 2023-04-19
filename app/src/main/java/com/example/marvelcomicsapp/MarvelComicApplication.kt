@@ -1,4 +1,4 @@
-package com.example.core
+package com.example.marvelcomicsapp
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

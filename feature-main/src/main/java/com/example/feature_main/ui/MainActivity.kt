@@ -1,4 +1,4 @@
-package com.example.marvelcomicsapp
+package com.example.feature_main.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -23,12 +23,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.feature_main.ui.comiclist.ComicListScreen
-import com.example.feature_main.ui.comicsdetails.ComicsDetailsScreen
-import com.example.feature_main.ui.searchcomics.SearchComicsScreen
-import com.example.feature_main.ui.theme.MarvelComicsAppTheme
-import com.example.feature_main.ui.theme.Red100
 import com.example.core.util.Screen
+import com.example.feature_main.R
+import com.example.feature_main.ui.comiclist.ComicListScreen
+import com.example.feature_main.ui.searchcomics.SearchComicsScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -83,10 +81,10 @@ fun Navigation(
 ) {
     NavHost(navController = navController, startDestination = Screen.ComicListScreen.route) {
         composable(Screen.ComicListScreen.route) {
-            com.example.feature_main.ui.comiclist.ComicListScreen(navController = navController)
+            ComicListScreen(navController = navController)
         }
         composable(Screen.SearchComicListScreen.route) {
-            com.example.feature_main.ui.searchcomics.SearchComicsScreen(navController = navController)
+            SearchComicsScreen(navController = navController)
         }
 
         composable(

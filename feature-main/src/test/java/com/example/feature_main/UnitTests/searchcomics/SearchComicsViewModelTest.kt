@@ -1,12 +1,8 @@
-package com.example.marvelcomicsapp.UnitTests.searchcomics
+package com.example.feature_main.UnitTests.searchcomics
 
 import android.app.Application
-import com.example.marvelcomicsapp.data.remote.responses.*
-import com.example.core.repository.MarvelComicRepository
-import com.example.feature_main.ui.searchcomics.SearchComicsEvent
-import com.example.feature_main.ui.searchcomics.SearchComicsState
-import com.example.feature_main.ui.searchcomics.SearchComicsViewModel
-import com.example.marvelcomicsapp.util.MainCoroutineRule
+import com.example.core.data.remote.responses.*
+import com.example.feature_main.util.MainCoroutineRule
 import io.mockk.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
@@ -21,6 +17,7 @@ import strikt.assertions.isEmpty
 import strikt.assertions.isEqualTo
 import strikt.assertions.isFalse
 import strikt.assertions.isTrue
+import com.example.core.repository.MarvelComicRepository
 
 @ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
@@ -31,13 +28,13 @@ class SearchComicsViewModelTest{
 
     private lateinit var viewModel: com.example.feature_main.ui.searchcomics.SearchComicsViewModel
 
-    private var fakeResult = mockk<com.example.core.remote.responses.Result>(relaxed = true)
+    private var fakeResult = mockk<Result>(relaxed = true)
 
-    private var fakeData = mockk<com.example.core.remote.responses.Data>(relaxed = true)
+    private var fakeData = mockk<Data>(relaxed = true)
 
-    private var fakeMarvelApiData = mockk<com.example.core.remote.responses.MarvelApiData>(relaxed = true)
+    private var fakeMarvelApiData = mockk<MarvelApiData>(relaxed = true)
 
-    private var fakeMarvelRepository = mockk<com.example.core.repository.MarvelComicRepository>()
+    private var fakeMarvelRepository = mockk<MarvelComicRepository>()
 
     private var myContext = mockk<Application>(relaxed = true)
 
@@ -45,11 +42,11 @@ class SearchComicsViewModelTest{
     fun setup(){
 
         fakeResult = fakeResult.copy(
-            creators = com.example.core.remote.responses.Creators(
+            creators = Creators(
                 listOf(
-                    com.example.core.remote.responses.CreatorItem(
+                    CreatorItem(
                         "Adam"
-                    ), com.example.core.remote.responses.CreatorItem("Jacob")
+                    ), CreatorItem("Jacob")
                 ), 2
             ),
             title = "Spider-man",

@@ -1,4 +1,4 @@
-package com.example.marvelcomicsapp.util
+package com.example.feature_main.util
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -1,6 +1,5 @@
-package com.example.marvelcomicsapp.ui.components
+package com.example.feature_main.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -9,14 +8,11 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.marvelcomicsapp.R
 import com.example.core.data.remote.responses.Result
-import com.example.marvelcomicsapp.ui.theme.Red100
 import com.example.core.util.Screen
+import com.example.feature_main.ui.theme.Red100
 
 @Composable
 fun ComicsListLazyColumn(

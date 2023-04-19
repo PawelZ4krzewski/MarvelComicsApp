@@ -1,4 +1,4 @@
-package com.example.marvelcomicsapp.ui.searchcomics
+package com.example.feature_main.ui.searchcomics
 
 import android.app.Application
 import android.content.Context

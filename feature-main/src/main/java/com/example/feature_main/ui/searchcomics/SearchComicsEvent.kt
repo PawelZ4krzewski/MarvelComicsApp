@@ -1,4 +1,4 @@
-package com.example.marvelcomicsapp.ui.searchcomics
+package com.example.feature_main.ui.searchcomics
 
 import androidx.compose.ui.focus.FocusState
 

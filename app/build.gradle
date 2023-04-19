@@ -53,80 +53,22 @@ android {
 }
 
 dependencies {
-    implementation project(":core")
+    implementation project(":feature-main")
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     implementation 'androidx.activity:activity-compose:1.6.1'
     implementation "androidx.compose.ui:ui:$compose_ui_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
-    implementation 'androidx.compose.material:material:1.3.1'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
-
-    implementation "androidx.compose.material:material-icons-extended:$compose_ui_version"
-    
-    //Splashscreen
-    implementation "androidx.core:core-splashscreen:1.0.0"
-
-    // Material3
-    implementation "androidx.compose.material3:material3:1.0.1"
-    implementation "androidx.compose.material3:material3-window-size-class:1.0.1"
-
-    //Gson
-    implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
-
-    //  retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
-    implementation 'com.squareup.okhttp3:okhttp-bom:4.10.0'
-    implementation "com.squareup.okhttp3:logging-interceptor:4.10.0"
-
-    //  Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
-
-    // glide
-    implementation 'com.github.bumptech.glide:glide:4.14.2'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
-    implementation "com.github.bumptech.glide:compose:1.0.0-alpha.1"
-
-    //coil
-    implementation("io.coil-kt:coil-compose:2.2.2")
 
     //hilt
-    implementation "com.google.dagger:hilt-android:2.42"
+    implementation "com.google.dagger:hilt-android:$hilt_version"
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
-    kapt "com.google.dagger:hilt-compiler:2.42"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
     kapt "androidx.hilt:hilt-compiler:1.0.0"
 
     //firebase
     implementation platform('com.google.firebase:firebase-bom:31.3.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
-    //JUnit
-    testImplementation 'junit:junit:4.13.2'
-
-    //mockk
-    testImplementation "io.mockk:mockk:1.9.3"
-
-    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1") {
-        exclude group: "org.jetbrains.kotlinx", module: "kotlinx-coroutines-debug"
-    }
-
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
-
-    testImplementation "androidx.arch.core:core-testing:2.1.0"
-
-    // assertion library
-    // cannot use 0.34.0 due to an existing bug
-    // https://github.com/robfletcher/strikt/issues/259
-    testImplementation 'io.strikt:strikt-core:0.33.0'
-    testImplementation 'io.strikt:strikt-mockk:0.33.0'
-    androidTestImplementation 'io.strikt:strikt-core:0.33.0'
 }

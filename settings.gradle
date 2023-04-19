@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "MarvelComicsApp"
 include ':app'
 include ':core'
+include ':feature-main'

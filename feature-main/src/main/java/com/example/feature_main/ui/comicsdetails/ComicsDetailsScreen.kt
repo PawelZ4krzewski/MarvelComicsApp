@@ -1,4 +1,4 @@
-package com.example.marvelcomicsapp.ui.comicsdetails
+package com.example.feature_main.ui.comicsdetails
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.*
@@ -26,9 +26,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.example.marvelcomicsapp.R
-import com.example.marvelcomicsapp.ui.components.HtmlText
-import com.example.marvelcomicsapp.ui.theme.*
+import com.example.feature_main.R
+import com.example.feature_main.ui.components.HtmlText
+import com.example.feature_main.ui.theme.ComicTitle
+import com.example.feature_main.ui.theme.Gray400
+import com.example.feature_main.ui.theme.LightGray200
+import com.example.feature_main.ui.theme.Red100
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 @Composable
