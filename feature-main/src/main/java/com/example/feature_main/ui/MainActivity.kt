@@ -23,11 +23,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.marvelcomicsapp.ui.comiclist.ComicListScreen
-import com.example.marvelcomicsapp.ui.comicsdetails.ComicsDetailsScreen
-import com.example.marvelcomicsapp.ui.searchcomics.SearchComicsScreen
-import com.example.marvelcomicsapp.ui.theme.MarvelComicsAppTheme
-import com.example.marvelcomicsapp.ui.theme.Red100
+import com.example.feature_main.ui.comiclist.ComicListScreen
+import com.example.feature_main.ui.comicsdetails.ComicsDetailsScreen
+import com.example.feature_main.ui.searchcomics.SearchComicsScreen
+import com.example.feature_main.ui.theme.MarvelComicsAppTheme
+import com.example.feature_main.ui.theme.Red100
 import com.example.core.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,16 +38,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         setContent {
-            MarvelComicsAppTheme {
+            com.example.feature_main.ui.theme.MarvelComicsAppTheme {
                 val navController = rememberNavController()
-                WindowCompat.setDecorFitsSystemWindows(window,false)
+                WindowCompat.setDecorFitsSystemWindows(window, false)
 
                 val isKeyboardOpen by keyboardAsState()
 
                 Scaffold(
                     modifier = Modifier.statusBarsPadding().systemBarsPadding(),
                     bottomBar = {
-                        if(!isKeyboardOpen) {
+                        if (!isKeyboardOpen) {
                             BottomNavigationBar(
                                 items = listOf(
                                     BottomNavItem(
@@ -83,10 +83,10 @@ fun Navigation(
 ) {
     NavHost(navController = navController, startDestination = Screen.ComicListScreen.route) {
         composable(Screen.ComicListScreen.route) {
-            ComicListScreen(navController = navController)
+            com.example.feature_main.ui.comiclist.ComicListScreen(navController = navController)
         }
         composable(Screen.SearchComicListScreen.route) {
-            SearchComicsScreen(navController = navController)
+            com.example.feature_main.ui.searchcomics.SearchComicsScreen(navController = navController)
         }
 
         composable(
@@ -100,7 +100,7 @@ fun Navigation(
                 }
             )
         ) {
-            ComicsDetailsScreen(navController = navController)
+            com.example.feature_main.ui.comicsdetails.ComicsDetailsScreen(navController = navController)
         }
     }
 }
@@ -125,7 +125,7 @@ fun BottomNavigationBar(
             BottomNavigationItem(
                 selected = selected,
                 onClick = { onItemClick(item) },
-                selectedContentColor = Red100,
+                selectedContentColor = com.example.feature_main.ui.theme.Red100,
                 unselectedContentColor = androidx.compose.ui.graphics.Color.LightGray,
                 icon = {
                     Column(horizontalAlignment = CenterHorizontally) {

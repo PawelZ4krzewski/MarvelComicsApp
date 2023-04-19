@@ -3,9 +3,9 @@ package com.example.marvelcomicsapp.UnitTests.searchcomics
 import android.app.Application
 import com.example.marvelcomicsapp.data.remote.responses.*
 import com.example.core.repository.MarvelComicRepository
-import com.example.marvelcomicsapp.ui.searchcomics.SearchComicsEvent
-import com.example.marvelcomicsapp.ui.searchcomics.SearchComicsState
-import com.example.marvelcomicsapp.ui.searchcomics.SearchComicsViewModel
+import com.example.feature_main.ui.searchcomics.SearchComicsEvent
+import com.example.feature_main.ui.searchcomics.SearchComicsState
+import com.example.feature_main.ui.searchcomics.SearchComicsViewModel
 import com.example.marvelcomicsapp.util.MainCoroutineRule
 import io.mockk.*
 import kotlinx.coroutines.*
@@ -29,7 +29,7 @@ class SearchComicsViewModelTest{
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
-    private lateinit var viewModel: SearchComicsViewModel
+    private lateinit var viewModel: com.example.feature_main.ui.searchcomics.SearchComicsViewModel
 
     private var fakeResult = mockk<com.example.core.remote.responses.Result>(relaxed = true)
 
@@ -76,7 +76,10 @@ class SearchComicsViewModelTest{
             } returns fakeMarvelApiData
         }
 
-        viewModel = SearchComicsViewModel(fakeMarvelRepository, myContext)
+        viewModel = com.example.feature_main.ui.searchcomics.SearchComicsViewModel(
+            fakeMarvelRepository,
+            myContext
+        )
     }
 
     @Test
@@ -84,27 +87,27 @@ class SearchComicsViewModelTest{
         viewModel.searchComicsBook("Spider")
         advanceUntilIdle()
         expectThat(viewModel.state.value){
-            get(SearchComicsState::comicBooks).isEqualTo(fakeMarvelApiData.data.results)
-            get(SearchComicsState::isSearched).isTrue()
+            get(com.example.feature_main.ui.searchcomics.SearchComicsState::comicBooks).isEqualTo(fakeMarvelApiData.data.results)
+            get(com.example.feature_main.ui.searchcomics.SearchComicsState::isSearched).isTrue()
         }
     }
 
     @Test
     fun `WHEN user type text THEN stage save it`() = runTest{
         val tekst = "Test"
-        viewModel.onEvent(SearchComicsEvent.EnterText(tekst))
+        viewModel.onEvent(com.example.feature_main.ui.searchcomics.SearchComicsEvent.EnterText(tekst))
         assertEquals(tekst, viewModel.state.value.searchComicText)
     }
 
     @Test
     fun `WHEN user click THEN comiclist is empty and isSearched is false and hint is visible`() = runTest {
 
-        viewModel.onEvent(SearchComicsEvent.CancelSearching)
+        viewModel.onEvent(com.example.feature_main.ui.searchcomics.SearchComicsEvent.CancelSearching)
 
         expectThat(viewModel.state.value){
-            get(SearchComicsState::comicBooks).isEmpty()
-            get(SearchComicsState::isSearched).isFalse()
-            get(SearchComicsState::isSearchComicHintVisible).isTrue()
+            get(com.example.feature_main.ui.searchcomics.SearchComicsState::comicBooks).isEmpty()
+            get(com.example.feature_main.ui.searchcomics.SearchComicsState::isSearched).isFalse()
+            get(com.example.feature_main.ui.searchcomics.SearchComicsState::isSearchComicHintVisible).isTrue()
         }
 
     }
