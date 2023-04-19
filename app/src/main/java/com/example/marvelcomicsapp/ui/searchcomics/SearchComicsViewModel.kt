@@ -108,5 +108,4 @@ class SearchComicsViewModel @Inject constructor(
             }
         }
     }
-
 }
