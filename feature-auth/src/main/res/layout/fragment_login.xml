@@ -9,14 +9,6 @@
         tools:context=".fragments.login.LoginFragment"
         android:id="@+id/loginFragment">
 
-
-        <!--    &lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
-        <!--    <TextView-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="match_parent"-->
-        <!--        android:text="@string/hello_login_fragment" />-->
-
-
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="wrap_content"
@@ -24,7 +16,7 @@
             android:layout_marginTop="88dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Login"
+            android:text="test@gmail.com"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +29,7 @@
             android:layout_marginTop="68dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="password"
+            android:text="test1234"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
