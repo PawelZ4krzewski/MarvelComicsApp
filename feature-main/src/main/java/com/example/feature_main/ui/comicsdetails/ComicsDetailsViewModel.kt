@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.core.repository.MarvelComicRepository
+import com.example.core.repository.MarvelComicRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,7 +18,7 @@ data class ComicsDetailsState(
 
 @HiltViewModel
 class ComicsDetailsViewModel @Inject constructor(
-    private val repository: MarvelComicRepository,
+    private val repository: MarvelComicRepositoryImpl,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 

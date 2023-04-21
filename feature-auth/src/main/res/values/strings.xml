@@ -1,0 +1,5 @@
+<resources>
+    <string name="hello_blank_fragment">BLANK FRAGMENT</string>
+    <string name="hello_login_fragment">LOGIN FRAGMENT</string>
+    <string name="hello_registration_fragment">REGISTRATION FRAGMENT</string>
+</resources>

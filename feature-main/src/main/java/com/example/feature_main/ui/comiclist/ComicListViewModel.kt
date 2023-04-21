@@ -21,7 +21,7 @@ data class ComicListState(
 
 @HiltViewModel
 class ComicListViewModel @Inject constructor(
-    private val repository: com.example.core.repository.MarvelComicRepository
+    private val repository: com.example.core.repository.MarvelComicRepositoryImpl
 ) : ViewModel() {
 
     private val _state = mutableStateOf(ComicListState())

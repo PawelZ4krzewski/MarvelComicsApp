@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.MarvelComicsLogin" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorGray</item>
+        <item name="colorPrimaryDark">@color/colorGray</item>
+        <item name="colorAccent">@color/colorAccent2</item>
+        <item name="android:textColorPrimary">#000</item>
+        <item name="actionButtonStyle">@style/AppTheme.Widget.ActionButton</item>
+        <item name="titleTextColor">@color/colorAccent</item>
+    </style>
+    <style name="AppTheme.Widget.ActionButton" parent="Widget.AppCompat.Button">
+        <item name="colorPrimary">#C61313</item>
+    </style>
+</resources>

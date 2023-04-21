@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <style name="Theme.MarvelComicsApp.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/background_blue</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_background</item>
+        <item name="postSplashScreenTheme">@style/Theme.MarvelComicsLogin</item>
+
+        <item name="windowSplashScreenAnimationDuration">200</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+
+    </style>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="splash_bgd">#FF17346D</color>
+    <color name="white">#F8FAFF</color>
+    <color name="colorAccent">#3A496C</color>
+    <color name="colorAccent2">#CC50A8</color>
+    <color name="colorGray">#26272B</color>
+</resources>
