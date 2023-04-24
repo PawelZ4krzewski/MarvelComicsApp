@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -25,6 +26,8 @@ class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     val binding get() = _binding!!
 
+
+
     private val viewModel: LoginViewModel by viewModels()
 
     private var loginJob: Job? = null
@@ -32,27 +35,27 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.etEmail.doOnTextChanged { text, _, _, _ ->
+        binding.tietEmail.doOnTextChanged { text, _, _, _ ->
             viewModel.setUsername(text.toString())
         }
 
-        binding.etPassword.doOnTextChanged { text, _, _, _ ->
+        binding.tietPassword.doOnTextChanged { text, _, _, _ ->
             viewModel.setPassword(text.toString())
         }
 
-        binding.btLogin.setOnClickListener {
+        binding.mbtLogin.setOnClickListener {
             viewModel.singIn()
             observeLoginStatus()
         }
 
-        binding.btRegistration.setOnClickListener {
+        binding.mbtRegistration.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragmentNav_to_registrationFragmentNav)
         }
     }

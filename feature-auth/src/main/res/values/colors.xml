@@ -2,7 +2,12 @@
 <resources>
     <color name="splash_bgd">#FF17346D</color>
     <color name="white">#F8FAFF</color>
+    <color name="black">#000000</color>
     <color name="colorAccent">#3A496C</color>
     <color name="colorAccent2">#CC50A8</color>
     <color name="colorGray">#26272B</color>
+    <color name="Red100">#F33335</color>
+    <color name="Red200">#C64547</color>
+    <color name="LightGray100">#F7F7F7</color>
+    <color name="Gray200">#7E7E7E</color>
 </resources>

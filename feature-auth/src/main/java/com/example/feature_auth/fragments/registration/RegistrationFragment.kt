@@ -40,19 +40,19 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.etEmail.doOnTextChanged { text, _, _, _ ->
+        binding.tietEmail.doOnTextChanged { text, _, _, _ ->
             viewModel.setUsername(text.toString())
         }
 
-        binding.etPassword.doOnTextChanged { text, _, _, _ ->
+        binding.tietPassword.doOnTextChanged { text, _, _, _ ->
             viewModel.setPassword(text.toString())
         }
 
-        binding.etRepeatPassword.doOnTextChanged { text, _, _, _ ->
+        binding.tietRepeatPassword.doOnTextChanged { text, _, _, _ ->
             viewModel.setRepeatPassword(text.toString())
         }
 
-        binding.btRegistration.setOnClickListener {
+        binding.mbtRegistration.setOnClickListener {
             viewModel.createUser()
             observeRegistrationStatus()
         }

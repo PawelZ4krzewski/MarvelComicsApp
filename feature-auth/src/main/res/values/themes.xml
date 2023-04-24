@@ -11,4 +11,15 @@
     <style name="AppTheme.Widget.ActionButton" parent="Widget.AppCompat.Button">
         <item name="colorPrimary">#C61313</item>
     </style>
+    
+    <style name="EditText">
+        <item name="backgroundTint">@color/LightGray100</item>
+
+    </style>
+    
+    <style name="LoginButton">
+        <item name="colorButtonNormal">@color/white</item>
+        <item name="backgroundTint">@color/Red100</item>
+        <item name="cornerRadius">10dp</item>
+    </style>
 </resources>

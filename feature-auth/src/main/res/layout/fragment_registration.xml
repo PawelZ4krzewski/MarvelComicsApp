@@ -1,54 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".fragments.registration.RegistrationFragment"
-        android:id="@+id/registrationFragment">
+    xmlns:tools="http://schemas.android.com/tools">
+
+        <data>
+
+        </data>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".fragments.registration.RegistrationFragment"
+            android:id="@+id/registrationFragment"
+            android:layout_margin="30dp"
+            >
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/mtvMarvelComics"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/tilEmail"
+                    android:text="@string/registration"
+                    android:gravity="center"
+                    android:textSize="50sp"
+                    android:textColor="@color/black"
+                    />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/mtvMarvelComics"
+                    app:layout_constraintBottom_toTopOf="@id/tilPassword"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tietEmail"
+                            android:inputType="textEmailAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/enter_email"
+                            style="@style/EditText"
+                            android:layout_marginBottom="16dp"
+                            android:nextFocusForward="@id/tilPassword"
+                            />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tilEmail"
+                    app:layout_constraintBottom_toTopOf="@+id/mbtRegistration"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:passwordToggleEnabled="true"
+                    >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tietPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/enter_password"
+                            style="@style/EditText"
+                            android:layout_marginBottom="16dp"
+                            android:inputType="textPassword"
+                            android:nextFocusForward="@id/tilRepeatPassword"
+                            />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilRepeatPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tilPassword"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:passwordToggleEnabled="true"
+                    >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tietRepeatPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/repeat_password"
+                            style="@style/EditText"
+                            android:imeOptions="actionDone"
+                            android:inputType="textPassword"
+                            />
+                </com.google.android.material.textfield.TextInputLayout>
 
 
-        <EditText
-            android:id="@+id/etEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="test@gmail.com"
-            app:layout_constraintBottom_toTopOf="@+id/etPassword"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/mbtRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@string/create_account"
+                    android:paddingVertical="16dp"
+                    style="@style/LoginButton"
+                    />
 
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="test1234"
-            app:layout_constraintBottom_toTopOf="@+id/etRepeatPassword"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <EditText
-            android:id="@+id/etRepeatPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="test1234"
-            app:layout_constraintBottom_toTopOf="@+id/btRegistration"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/btRegistration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
