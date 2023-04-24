@@ -1,6 +1,7 @@
 package com.example.feature_auth
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.core.util.Constants.Companion.MAIN_ACTIVITY_PATH
@@ -34,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun isCurrentUser(){
+        Log.d("MyTag", auth.currentUser.toString())
         if(auth.currentUser != null){
             applicationContext.navigateToActivity(MAIN_ACTIVITY_PATH)
         }

@@ -43,7 +43,7 @@ class LoginFragment : Fragment() {
             viewModel.setUsername(text.toString())
         }
 
-        binding.etEmail.doOnTextChanged { text, _, _, _ ->
+        binding.etPassword.doOnTextChanged { text, _, _, _ ->
             viewModel.setPassword(text.toString())
         }
 
