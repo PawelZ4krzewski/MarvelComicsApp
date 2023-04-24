@@ -105,6 +105,19 @@
                     android:paddingVertical="16dp"
                     style="@style/LoginButton"
                     />
-
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabtBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat = "@drawable/icon_arrowback"
+                    android:contentDescription="@string/back_to_login"
+                    android:backgroundTint="@color/white"
+                    app:borderWidth="0dp"
+                    android:elevation="0dp"
+                    app:elevation="0dp"
+                    />
         </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

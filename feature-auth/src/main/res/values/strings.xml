@@ -9,4 +9,5 @@
     <string name="marvelcomicsapp">MarvelComicsApp</string>
     <string name="registration">REGISTRATION</string>
     <string name="repeat_password">Repeat password</string>
+    <string name="back_to_login">Back to login</string>
 </resources>

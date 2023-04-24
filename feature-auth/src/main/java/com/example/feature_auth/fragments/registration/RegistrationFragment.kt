@@ -9,6 +9,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.core.util.Constants.Companion.MAIN_ACTIVITY_PATH
 import com.example.feature_auth.R
 import com.example.feature_auth.databinding.FragmentRegistrationBinding
@@ -53,11 +54,18 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
         }
 
         binding.mbtRegistration.setOnClickListener {
-            viewModel.createUser()
-            observeRegistrationStatus()
+            if(viewModel.checkLoginData()){
+                viewModel.createUser()
+                observeRegistrationStatus()
+            } else {
+                Toast.makeText(requireContext(), "Incorrect e-mail or password.",
+                    Toast.LENGTH_SHORT).show()
+            }
         }
 
-
+        binding.fabtBack.setOnClickListener {
+            findNavController().navigate(R.id.action_registrationFragmentNav_to_loginFragmentNav)
+        }
     }
 
     private fun observeRegistrationStatus(){

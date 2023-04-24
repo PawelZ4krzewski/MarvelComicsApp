@@ -1,13 +1,10 @@
 package com.example.feature_auth.fragments.registration
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.core.repository.FirebaseRepository
 import com.example.core.repository.FirebaseRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,14 +13,14 @@ class RegistrationViewModel @Inject constructor(
     private val auth: FirebaseAuth
 ): ViewModel() {
 
-    private val _username = MutableStateFlow("")
+    private val _email = MutableStateFlow("")
     private val _password = MutableStateFlow("")
     private val _repeatPassword = MutableStateFlow("")
 
     var isRegistrationSuccesfull: Flow<Boolean> = flowOf(false)
 
-    fun setUsername(username: String){
-        _username.value = username
+    fun setUsername(email: String){
+        _email.value = email
     }
     fun setPassword(password: String){
         _password.value = password
@@ -32,7 +29,13 @@ class RegistrationViewModel @Inject constructor(
         _repeatPassword.value = password
     }
 
+    fun checkLoginData(): Boolean {
+        val isEmailCorrect = _email.value.trim().isNotBlank() && android.util.Patterns.EMAIL_ADDRESS.matcher(_email.value).matches()
+        val isPasswordsAreIdentical = _password.value == _repeatPassword.value
+        return isEmailCorrect && _password.value.trim().isNotBlank() && _repeatPassword.value.trim().isNotBlank() && isPasswordsAreIdentical
+    }
+
     fun createUser() {
-        isRegistrationSuccesfull = repository.createNewUser(_username.value, _password.value, auth)
+        isRegistrationSuccesfull = repository.createNewUser(_email.value, _password.value, auth)
     }
 }

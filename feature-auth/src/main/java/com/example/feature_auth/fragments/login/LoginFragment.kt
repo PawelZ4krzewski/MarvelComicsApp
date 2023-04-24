@@ -51,8 +51,13 @@ class LoginFragment : Fragment() {
         }
 
         binding.mbtLogin.setOnClickListener {
-            viewModel.singIn()
-            observeLoginStatus()
+            if(viewModel.checkLoginData()){
+                viewModel.singIn()
+                observeLoginStatus()
+            } else {
+                Toast.makeText(requireContext(), "Incorrect e-mail or password.",
+                    Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.mbtRegistration.setOnClickListener {
@@ -66,7 +71,7 @@ class LoginFragment : Fragment() {
                 if(result){
                     requireContext().navigateToActivity(MAIN_ACTIVITY_PATH)
                 } else{
-                    Toast.makeText(requireContext(), "Login failed.",
+                    Toast.makeText(requireContext(), "Login failed - check your e-mail and password.",
                         Toast.LENGTH_SHORT).show()
                 }
             }
