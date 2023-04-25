@@ -26,11 +26,8 @@ class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     val binding get() = _binding!!
 
-
-
     private val viewModel: LoginViewModel by viewModels()
 
-    private var loginJob: Job? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,7 +63,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun observeLoginStatus(){
-        loginJob = lifecycleScope.launch {
+        lifecycleScope.launch {
             viewModel.isLoginSuccesfull.collectLatest {result ->
                 if(result){
                     requireContext().navigateToActivity(MAIN_ACTIVITY_PATH)
@@ -76,10 +73,5 @@ class LoginFragment : Fragment() {
                 }
             }
         }
-    }
-
-    override fun onStop() {
-        loginJob?.cancel()
-        super.onStop()
     }
 }

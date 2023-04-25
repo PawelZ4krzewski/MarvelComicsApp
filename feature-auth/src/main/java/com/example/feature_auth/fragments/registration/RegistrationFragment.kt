@@ -28,8 +28,6 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
     private val viewModel: RegistrationViewModel by viewModels()
 
-    private var registrationJob: Job? = null
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,18 +38,6 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.tietEmail.doOnTextChanged { text, _, _, _ ->
-            viewModel.setUsername(text.toString())
-        }
-
-        binding.tietPassword.doOnTextChanged { text, _, _, _ ->
-            viewModel.setPassword(text.toString())
-        }
-
-        binding.tietRepeatPassword.doOnTextChanged { text, _, _, _ ->
-            viewModel.setRepeatPassword(text.toString())
-        }
 
         binding.mbtRegistration.setOnClickListener {
             if(viewModel.checkLoginData()){
@@ -69,7 +55,7 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
     }
 
     private fun observeRegistrationStatus(){
-        registrationJob = lifecycleScope.launch {
+        lifecycleScope.launch {
             viewModel.isRegistrationSuccesfull.collectLatest {result ->
                 if(result){
                     requireContext().navigateToActivity(MAIN_ACTIVITY_PATH)
@@ -80,10 +66,4 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
             }
         }
     }
-
-    override fun onStop() {
-        registrationJob?.cancel()
-        super.onStop()
-    }
-
 }

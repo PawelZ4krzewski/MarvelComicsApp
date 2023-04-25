@@ -13,29 +13,19 @@ class RegistrationViewModel @Inject constructor(
     private val auth: FirebaseAuth
 ): ViewModel() {
 
-    private val _email = MutableStateFlow("")
-    private val _password = MutableStateFlow("")
-    private val _repeatPassword = MutableStateFlow("")
+    val email = MutableStateFlow("")
+    val password = MutableStateFlow("")
+    val repeatPassword = MutableStateFlow("")
 
     var isRegistrationSuccesfull: Flow<Boolean> = flowOf(false)
 
-    fun setUsername(email: String){
-        _email.value = email
-    }
-    fun setPassword(password: String){
-        _password.value = password
-    }
-    fun setRepeatPassword(password: String){
-        _repeatPassword.value = password
-    }
-
     fun checkLoginData(): Boolean {
-        val isEmailCorrect = _email.value.trim().isNotBlank() && android.util.Patterns.EMAIL_ADDRESS.matcher(_email.value).matches()
-        val isPasswordsAreIdentical = _password.value == _repeatPassword.value
-        return isEmailCorrect && _password.value.trim().isNotBlank() && _repeatPassword.value.trim().isNotBlank() && isPasswordsAreIdentical
+        val isEmailCorrect = email.value.trim().isNotBlank() && android.util.Patterns.EMAIL_ADDRESS.matcher(email.value).matches()
+        val isPasswordsAreIdentical = password.value == repeatPassword.value
+        return isEmailCorrect && password.value.trim().isNotBlank() && repeatPassword.value.trim().isNotBlank() && isPasswordsAreIdentical
     }
 
     fun createUser() {
-        isRegistrationSuccesfull = repository.createNewUser(_email.value, _password.value, auth)
+        isRegistrationSuccesfull = repository.createNewUser(email.value, password.value, auth)
     }
 }

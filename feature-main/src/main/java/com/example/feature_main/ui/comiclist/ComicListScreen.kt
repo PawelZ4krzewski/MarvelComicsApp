@@ -110,7 +110,7 @@ fun ComicListHeader(
                 DropdownMenu(expanded = expanded.value,
                     onDismissRequest = {expanded.value = false}) {
                     androidx.compose.material3.DropdownMenuItem(
-                        text = { Text("Logout") },
+                        text = { Text(text = stringResource(id = R.string.logout)) },
                         onClick = { viewModel.onEvent(ComicListEvent.Logout(activity))},
                         leadingIcon = {
                             Icon(

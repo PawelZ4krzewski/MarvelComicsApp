@@ -11,18 +11,8 @@ import kotlinx.coroutines.tasks.await
 class FirebaseRepositoryImpl: FirebaseRepository {
 
     override fun createNewUser(email: String, password: String, auth: FirebaseAuth): Flow<Boolean> = callbackFlow {
-
-        Log.d("CreatingUser", "Email: $email, password $password")
-
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-
-            if (task.isSuccessful) {
-                Log.d("CreatingUser", "createUserWithEmail:success")
-                trySend(task.isSuccessful)
-            } else {
-                Log.d("CreatingUser", "createUserWithEmail: failure, ${task.exception}")
-                trySend(task.isSuccessful)
-            }
+            trySend(task.isSuccessful)
         }
         awaitClose { }
     }
@@ -30,21 +20,8 @@ class FirebaseRepositoryImpl: FirebaseRepository {
 
 
     override fun signInUser(email: String, password: String, auth: FirebaseAuth): Flow<Boolean> = callbackFlow {
-
-        Log.d("SignInUser", "Email: $email, password $password")
-
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                task.result.user?.let {
-                    Log.d("SignInUser", "signInWithEmail: User: $it")
-                    auth.updateCurrentUser(it)
-                }
-                Log.d("SignInUser", "signInWithEmail:success")
-                trySend(task.isSuccessful)
-            } else {
-                Log.d("SignInUser", "signInWithEmail: failure, ${task.exception}")
-                trySend(task.isSuccessful)
-            }
+            trySend(task.isSuccessful)
         }
         awaitClose {  }
     }

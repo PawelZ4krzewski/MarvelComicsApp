@@ -2,6 +2,7 @@ package com.example.core.di
 
 import com.example.core.BuildConfig
 import com.example.core.data.remote.api.ComicApi
+import com.example.core.repository.MarvelComicRepository
 import com.example.core.repository.MarvelComicRepositoryImpl
 import com.example.core.util.Constants
 import dagger.Module
@@ -85,5 +86,5 @@ object AppModule {
     @Singleton
     fun provideMarvelComicRepository(
         api: ComicApi
-    ): MarvelComicRepositoryImpl = MarvelComicRepositoryImpl(api)
+    ): MarvelComicRepository = MarvelComicRepositoryImpl(api)
 }

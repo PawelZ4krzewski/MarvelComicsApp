@@ -1,5 +1,6 @@
 package com.example.core.di
 
+import com.example.core.repository.FirebaseRepository
 import com.example.core.repository.FirebaseRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -20,5 +21,5 @@ object LoginModule {
 
     @Provides
     @Singleton
-    fun provideFirebaseRepository(): FirebaseRepositoryImpl = FirebaseRepositoryImpl()
+    fun provideFirebaseRepository(): FirebaseRepository = FirebaseRepositoryImpl()
 }

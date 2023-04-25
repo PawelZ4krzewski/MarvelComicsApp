@@ -1,4 +1,5 @@
 <resources>
+    <string name="web_client_id">618328063925–366lefsh2pqdql381llpde3iahhu9g4j.apps.googleusercontent.com</string>
     <string name="hello_blank_fragment">BLANK FRAGMENT</string>
     <string name="hello_login_fragment">LOGIN FRAGMENT</string>
     <string name="hello_registration_fragment">REGISTRATION FRAGMENT</string>

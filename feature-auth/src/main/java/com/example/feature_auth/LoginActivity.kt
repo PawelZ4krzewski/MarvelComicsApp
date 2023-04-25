@@ -11,12 +11,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
-
-//    @Inject lateinit var auth: FirebaseAuth
 
     private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +23,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         auth = Firebase.auth
-
         supportActionBar?.hide()
     }
 
@@ -41,4 +37,5 @@ class LoginActivity : AppCompatActivity() {
             applicationContext.navigateToActivity(MAIN_ACTIVITY_PATH)
         }
     }
+
 }

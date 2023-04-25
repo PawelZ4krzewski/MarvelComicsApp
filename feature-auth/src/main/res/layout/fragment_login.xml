@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.example.feature_auth.fragments.login.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,6 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/enter_email"
+                android:text="@={viewModel.email}"
                 style="@style/EditText"
                 android:layout_marginBottom="16dp"
                 />
@@ -65,6 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/enter_password"
+                android:text="@={viewModel.password}"
                 style="@style/EditText"
                 />
         </com.google.android.material.textfield.TextInputLayout>

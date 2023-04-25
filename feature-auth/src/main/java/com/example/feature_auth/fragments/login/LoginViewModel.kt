@@ -15,23 +15,16 @@ class LoginViewModel @Inject constructor(
     private val auth: FirebaseAuth
 ): ViewModel() {
 
-    private val _email = MutableStateFlow("")
-    private val _password = MutableStateFlow("")
+    val email = MutableStateFlow("")
+    val password = MutableStateFlow("")
 
     var isLoginSuccesfull: Flow<Boolean> = flowOf(false)
 
-    fun setUsername(email: String){
-        _email.value = email
-    }
-    fun setPassword(password: String){
-        _password.value = password
-    }
-
     fun checkLoginData(): Boolean {
-        val isEmailCorrect = _email.value.trim().isNotBlank() && android.util.Patterns.EMAIL_ADDRESS.matcher(_email.value).matches()
-        return isEmailCorrect && _password.value.trim().isNotBlank()
+        val isEmailCorrect = email.value.trim().isNotBlank() && android.util.Patterns.EMAIL_ADDRESS.matcher(email.value).matches()
+        return isEmailCorrect && password.value.trim().isNotBlank()
     }
     fun singIn() {
-        isLoginSuccesfull = repository.signInUser(_email.value, _password.value, auth)
+        isLoginSuccesfull = repository.signInUser(email.value, password.value, auth)
     }
 }
