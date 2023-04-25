@@ -1,20 +1,25 @@
 package com.example.feature_main.ui.comiclist
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.rememberTopAppBarState
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -39,10 +44,14 @@ fun ComicListScreen(
         state = topAppBarState
     )
 
+    val expanded = remember {
+        mutableStateOf(false)
+    }
+
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            ComicListHeader(scrollBehavior = scrollBehavior)
+            ComicListHeader(scrollBehavior = scrollBehavior, expanded = expanded, viewModel = viewModel)
         },
         scaffoldState = scaffoldState
     ) {
@@ -68,11 +77,14 @@ fun ComicListScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ComicListHeader(
-    scrollBehavior: TopAppBarScrollBehavior
+    scrollBehavior: TopAppBarScrollBehavior,
+    expanded: MutableState<Boolean>,
+    viewModel: ComicListViewModel
 ) {
     Box(
         modifier = if (scrollBehavior.state.contentOffset < -10f) {
-            Modifier.shadow(elevation = 20.dp, shape = RectangleShape)
+            Modifier
+                .shadow(elevation = 20.dp, shape = RectangleShape)
                 .fillMaxWidth()
                 .background(White)
                 .padding(15.dp, 20.dp, 10.dp, 5.dp)
@@ -81,10 +93,35 @@ fun ComicListHeader(
             .background(White)
             .padding(15.dp, 20.dp, 10.dp, 5.dp)
     ) {
-        Text(
-            text = stringResource(id = R.string.marvel_comics),
-            style = MaterialTheme.typography.HeaderComicList,
-        )
+        Row (modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ){
+            Text(
+                text = stringResource(id = R.string.marvel_comics),
+                style = MaterialTheme.typography.HeaderComicList,
+            )
+            Box() {
+
+                val activity = (LocalContext.current as? Activity)
+
+                IconButton(onClick = { expanded.value = true }) {
+                    Icon(Icons.Default.MoreVert, contentDescription = "Localized description")
+                }
+                DropdownMenu(expanded = expanded.value,
+                    onDismissRequest = {expanded.value = false}) {
+                    androidx.compose.material3.DropdownMenuItem(
+                        text = { Text(text = stringResource(id = R.string.logout)) },
+                        onClick = { viewModel.onEvent(ComicListEvent.Logout(activity))},
+                        leadingIcon = {
+                            Icon(
+                                Icons.Default.ExitToApp,
+                                contentDescription = null
+                            )
+                        }
+                    )
+                }
+            }
+        }
     }
 }
 
