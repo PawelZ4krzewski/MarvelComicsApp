@@ -2,5 +2,6 @@
 <resources>
 
     <style name="Theme.MarvelComicsApp" parent="android:Theme.Material.Light.NoActionBar">
+
     </style>
 </resources>

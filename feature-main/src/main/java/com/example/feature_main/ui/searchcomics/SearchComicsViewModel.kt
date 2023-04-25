@@ -10,7 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.data.remote.responses.Result
-import com.example.core.repository.MarvelComicRepository
+import com.example.core.repository.MarvelComicRepositoryImpl
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,7 +30,7 @@ data class SearchComicsState(
 
 @HiltViewModel
 class SearchComicsViewModel @Inject constructor(
-    private val repository: MarvelComicRepository,
+    private val repository: MarvelComicRepositoryImpl,
     app: Application,
 ) : AndroidViewModel(app) {
 

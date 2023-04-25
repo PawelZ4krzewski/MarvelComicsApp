@@ -9,6 +9,7 @@ class Constants {
 
     companion object {
         const val PAGE_SIZE = 20
+        const val MAIN_ACTIVITY_PATH = "com.example.feature_main.ui.MainActivity"
         val ts = Timestamp(System.currentTimeMillis()).toString()
 
         fun hashMD5(): String {

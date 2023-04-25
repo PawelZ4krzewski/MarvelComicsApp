@@ -1,5 +1,6 @@
 package com.example.feature_main.ui.comiclist
 
+import android.content.Intent
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,9 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import javax.inject.Inject
 import com.example.core.data.remote.responses.Result
+import com.example.core.repository.MarvelComicRepositoryImpl
+import com.example.feature_main.ui.MainActivity
+import com.google.firebase.auth.FirebaseAuth
 
 data class ComicListState(
     val comicBooks: List<Result> = emptyList(),
@@ -21,7 +25,8 @@ data class ComicListState(
 
 @HiltViewModel
 class ComicListViewModel @Inject constructor(
-    private val repository: com.example.core.repository.MarvelComicRepository
+    private val repository: MarvelComicRepositoryImpl,
+    private val auth: FirebaseAuth,
 ) : ViewModel() {
 
     private val _state = mutableStateOf(ComicListState())
@@ -50,6 +55,15 @@ class ComicListViewModel @Inject constructor(
                 _state.value = state.value.copy(
                     loadError = e.toString()
                 )
+            }
+        }
+    }
+
+    fun onEvent(event: ComicListEvent) {
+        when (event) {
+            is ComicListEvent.Logout -> {
+                auth.signOut()
+                event.activity?.finish()
             }
         }
     }

@@ -17,7 +17,7 @@ import strikt.assertions.isEmpty
 import strikt.assertions.isEqualTo
 import strikt.assertions.isFalse
 import strikt.assertions.isTrue
-import com.example.core.repository.MarvelComicRepository
+import com.example.core.repository.MarvelComicRepositoryImpl
 
 @ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
@@ -34,7 +34,7 @@ class SearchComicsViewModelTest{
 
     private var fakeMarvelApiData = mockk<MarvelApiData>(relaxed = true)
 
-    private var fakeMarvelRepository = mockk<MarvelComicRepository>()
+    private var fakeMarvelRepository = mockk<MarvelComicRepositoryImpl>()
 
     private var myContext = mockk<Application>(relaxed = true)
 
