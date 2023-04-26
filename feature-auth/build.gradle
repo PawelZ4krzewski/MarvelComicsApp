@@ -5,6 +5,14 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
+def getApiProperties(){
+    Properties properties = new Properties()
+    if (file("../apikey.properties").exists()){
+        properties.load(new FileInputStream(rootProject.file("apikey.properties")))
+    }
+    return properties
+}
+
 android {
     namespace 'com.example.feature_auth'
     compileSdk 33
@@ -15,6 +23,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+
+        buildConfigField "String", "WEB_CLIENT_ID", System.getenv("WEB_CLIENT_ID") ?: "\"${apiProperties.getProperty("WEB_CLIENT_ID")}\""
     }
 
     buildTypes {
@@ -54,6 +65,7 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.android.gms:play-services-auth:20.5.0'
 
     //hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"

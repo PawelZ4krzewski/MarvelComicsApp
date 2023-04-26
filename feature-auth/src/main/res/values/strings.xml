@@ -1,5 +1,5 @@
 <resources>
-    <string name="web_client_id">618328063925–366lefsh2pqdql381llpde3iahhu9g4j.apps.googleusercontent.com</string>
+    <string name="web_client_id">618328063925-o02vdiop8jgn8ge7anl9aistlkhb8nre.apps.googleusercontent.com</string>
     <string name="hello_blank_fragment">BLANK FRAGMENT</string>
     <string name="hello_login_fragment">LOGIN FRAGMENT</string>
     <string name="hello_registration_fragment">REGISTRATION FRAGMENT</string>
@@ -7,8 +7,9 @@
     <string name="enter_password">Enter Password</string>
     <string name="sign_in">Sign in</string>
     <string name="create_account">Create account</string>
-    <string name="marvelcomicsapp">MarvelComicsApp</string>
+    <string name="marvelcomicsapp">MarvelComics</string>
     <string name="registration">REGISTRATION</string>
     <string name="repeat_password">Repeat password</string>
     <string name="back_to_login">Back to login</string>
+    <string name="sign_in_with_google">SIGN IN WITH GOOGLE</string>
 </resources>

@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/enter_email"
-                android:text="@={viewModel.email}"
+                android:text="@={viewModel.loginState.email}"
                 style="@style/EditText"
                 android:layout_marginBottom="16dp"
                 />
@@ -68,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/enter_password"
-                android:text="@={viewModel.password}"
+                android:text="@={viewModel.loginState.password}"
                 style="@style/EditText"
                 />
         </com.google.android.material.textfield.TextInputLayout>
@@ -85,17 +85,42 @@
             style="@style/LoginButton"
             />
 
+
+
+<!--        <com.google.android.material.button.MaterialButton-->
+<!--            android:id="@+id/mbtLoginGoogle"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/mbtRegistration"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:text="@string/sign_in_with_google"-->
+<!--            android:paddingVertical="16dp"-->
+<!--            style="@style/LoginButton"-->
+<!--            />-->
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/mbtRegistration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/mbtLoginGoogle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/create_account"
             android:paddingVertical="16dp"
             style="@style/LoginButton"
             android:backgroundTint="@color/Gray200"
+            />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/mbtLoginGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_in_with_google"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/LoginButton"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
