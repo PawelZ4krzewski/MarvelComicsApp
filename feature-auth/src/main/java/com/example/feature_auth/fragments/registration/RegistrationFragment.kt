@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.core.util.Constants.Companion.MAIN_ACTIVITY_PATH
-import com.example.feature_auth.BR
 import com.example.feature_auth.R
 import com.example.feature_auth.databinding.FragmentRegistrationBinding
 import com.example.feature_auth.utils.navigateToActivity
@@ -31,8 +30,9 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-         _binding = FragmentRegistrationBinding.inflate(inflater, container, false)
-        binding.setVariable(BR.viewModel, viewModel)
+         _binding = FragmentRegistrationBinding.inflate(inflater, container, false).apply {
+             viewModel = this@RegistrationFragment.viewModel
+         }
         return binding.root
     }
 

@@ -1,7 +1,6 @@
 package com.example.feature_auth.fragments.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +12,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.core.util.Constants.Companion.MAIN_ACTIVITY_PATH
-import com.example.feature_auth.BR
 import com.example.feature_auth.LoginActivity
 import com.example.feature_auth.R
 import com.example.feature_auth.databinding.FragmentLoginBinding
 import com.example.feature_auth.utils.navigateToActivity
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -41,15 +40,17 @@ class LoginFragment : Fragment() {
                 })
 
             }.onFailure {
-                Log.e(tag, it.stackTraceToString())
+                Snackbar.make(binding.root, it.stackTraceToString(), Snackbar.LENGTH_SHORT)
+                    .show()
             }
         }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
-        binding.setVariable(BR.viewModel, viewModel)
+        _binding = DataBindingUtil.inflate<FragmentLoginBinding?>(inflater, R.layout.fragment_login, container, false).apply {
+            viewModel = this@LoginFragment.viewModel
+        }
         return binding.root
     }
 
