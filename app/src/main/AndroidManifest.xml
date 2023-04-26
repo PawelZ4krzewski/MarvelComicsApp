@@ -22,7 +22,6 @@
         </activity>
 
         <activity android:name="com.example.feature_auth.LoginActivity"
-            android:windowSoftInputMode="adjustResize"
             android:theme="@style/Theme.MarvelComicsApp.Splash"
             android:exported="true">
             <intent-filter>
