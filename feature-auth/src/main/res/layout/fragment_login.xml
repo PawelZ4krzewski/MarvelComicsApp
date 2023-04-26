@@ -85,20 +85,6 @@
             style="@style/LoginButton"
             />
 
-
-
-<!--        <com.google.android.material.button.MaterialButton-->
-<!--            android:id="@+id/mbtLoginGoogle"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintBottom_toTopOf="@+id/mbtRegistration"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            android:text="@string/sign_in_with_google"-->
-<!--            android:paddingVertical="16dp"-->
-<!--            style="@style/LoginButton"-->
-<!--            />-->
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/mbtRegistration"
             android:layout_width="match_parent"
@@ -114,7 +100,7 @@
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/mbtLoginGoogle"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="@string/sign_in_with_google"
             app:layout_constraintBottom_toBottomOf="parent"
