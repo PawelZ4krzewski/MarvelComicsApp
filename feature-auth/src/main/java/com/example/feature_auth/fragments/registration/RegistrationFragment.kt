@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -15,7 +14,6 @@ import com.example.feature_auth.R
 import com.example.feature_auth.databinding.FragmentRegistrationBinding
 import com.example.feature_auth.utils.navigateToActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -32,7 +30,9 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-         _binding = FragmentRegistrationBinding.inflate(inflater, container, false)
+         _binding = FragmentRegistrationBinding.inflate(inflater, container, false).apply {
+             viewModel = this@RegistrationFragment.viewModel
+         }
         return binding.root
     }
 
