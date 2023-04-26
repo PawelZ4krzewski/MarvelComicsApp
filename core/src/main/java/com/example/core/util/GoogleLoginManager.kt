@@ -6,7 +6,8 @@ import com.example.core.BuildConfig
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Inject
 
@@ -31,7 +32,7 @@ class GoogleLoginManager @Inject constructor() {
         activity?.let { GoogleSignIn.getClient(it, getGoogleSignInOptions()).signInIntent }
 
 
-    fun logOut(auth: FirebaseAuth) {
+    fun logOut() {
 
         activity?.let {
         GoogleSignIn.getClient(
@@ -44,7 +45,7 @@ class GoogleLoginManager @Inject constructor() {
             it
         )
     }
-        auth.signOut()
+        Firebase.auth.signOut()
         activity?.finish()
     }
 

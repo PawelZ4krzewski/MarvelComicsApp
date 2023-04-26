@@ -8,7 +8,6 @@ import com.example.core.data.remote.responses.Result
 import com.example.core.repository.MarvelComicRepositoryImpl
 import com.example.core.util.Constants
 import com.example.core.util.GoogleLoginManager
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -25,7 +24,6 @@ data class ComicListState(
 @HiltViewModel
 class ComicListViewModel @Inject constructor(
     private val repository: MarvelComicRepositoryImpl,
-    private val auth: FirebaseAuth,
     private val googleLoginManager: GoogleLoginManager,
     ) : ViewModel() {
 
@@ -63,7 +61,7 @@ class ComicListViewModel @Inject constructor(
         when (event) {
             is ComicListEvent.Logout -> {
                 event.activity?.let { googleLoginManager.initGoogleManager(it) }
-                googleLoginManager.logOut(auth)
+                googleLoginManager.logOut()
             }
         }
     }

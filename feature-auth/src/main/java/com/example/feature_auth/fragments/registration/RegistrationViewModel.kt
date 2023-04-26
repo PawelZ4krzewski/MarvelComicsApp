@@ -3,7 +3,6 @@ package com.example.feature_auth.fragments.registration
 import androidx.lifecycle.ViewModel
 import com.example.core.repository.FirebaseRepository
 import com.example.feature_auth.utils.Constants
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +12,6 @@ import javax.inject.Inject
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(
     private val repository: FirebaseRepository,
-    private val auth: FirebaseAuth
 ): ViewModel() {
 
     val email = MutableStateFlow("")
@@ -30,6 +28,6 @@ class RegistrationViewModel @Inject constructor(
     }
 
     fun createUser() {
-        isRegistrationSuccesfull = repository.createNewUser(email.value, password.value, auth)
+        isRegistrationSuccesfull = repository.createNewUser(email.value, password.value)
     }
 }
