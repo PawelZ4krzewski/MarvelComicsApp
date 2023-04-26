@@ -1,6 +1,5 @@
 package com.example.core.repository
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.channels.awaitClose
@@ -28,22 +27,11 @@ class FirebaseRepositoryImpl: FirebaseRepository {
         auth: FirebaseAuth,
         onSuccess: () -> Unit
     ){
-        Log.d("DUPA", "Repository Credential : WCHODZE ")
-
         val credentials = GoogleAuthProvider.getCredential(idToken, null)
-        Log.d("DUPA", "Repository Credential: $credentials")
-
         auth.signInWithCredential(credentials).addOnCompleteListener { task ->
-            Log.d("DUPA", "Repository Credential: task ${task.isSuccessful}")
-                if(task.isSuccessful){
-                    onSuccess()
-                }
-//                trySend(task.isSuccessful)
-        }.addOnCanceledListener {
-            Log.d("DUPA", "Repository Credential: CANCELLED")
-        }.addOnFailureListener {
-            Log.d("DUPA", "Repository Credential: FAILURE: ${it.message}")
-
+            if (task.isSuccessful) {
+                onSuccess()
+            }
         }
     }
 }

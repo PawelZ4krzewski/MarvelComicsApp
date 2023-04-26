@@ -36,15 +36,12 @@ class LoginFragment : Fragment() {
             val task = viewModel.getSignedInAccountFromIntent(result)
             runCatching {
                 val account = task.getResult(ApiException::class.java)
-                Log.d("DUPA", "BEFORE signInGoogle account ${account.email}")
                 viewModel.signInGoogle(account.idToken, onSuccess = {
                     requireContext().navigateToActivity(MAIN_ACTIVITY_PATH)
                 })
-//                requireContext().navigateToActivity(MAIN_ACTIVITY_PATH)
 
             }.onFailure {
                 Log.e(tag, it.stackTraceToString())
-                Log.d("DUPA", "googleLoginResult ${it.stackTraceToString()}")
             }
         }
     override fun onCreateView(

@@ -1,8 +1,8 @@
 package com.example.feature_auth.fragments.registration
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.core.repository.FirebaseRepository
+import com.example.feature_auth.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -23,10 +23,10 @@ class RegistrationViewModel @Inject constructor(
     var isRegistrationSuccesfull: Flow<Boolean> = flowOf(false)
 
     fun checkLoginData(): Boolean {
-        Log.d("DUPA","email: ${email.value} password: ${password.value} repeatpassword: ${repeatPassword.value}")
         val isEmailCorrect = email.value.trim().isNotBlank() && android.util.Patterns.EMAIL_ADDRESS.matcher(email.value).matches()
         val isPasswordsAreIdentical = password.value == repeatPassword.value
-        return isEmailCorrect && password.value.trim().isNotBlank() && repeatPassword.value.trim().isNotBlank() && isPasswordsAreIdentical
+        val isPasswordEnoughLong = password.value.count() >= Constants.MIN_PASSWORD_CHAR_AMOUNT && repeatPassword.value.count() >= Constants.MIN_PASSWORD_CHAR_AMOUNT
+        return isEmailCorrect && password.value.trim().isNotBlank() && repeatPassword.value.trim().isNotBlank() && isPasswordsAreIdentical && isPasswordEnoughLong
     }
 
     fun createUser() {
