@@ -3,9 +3,15 @@ package com.example.feature_main.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -29,7 +35,8 @@ fun ComicItem(
     modifier: Modifier = Modifier,
     author: String?,
     url: String,
-    cornerRadius: Dp = 7.dp
+    cornerRadius: Dp = 7.dp,
+    addToFavourite: () -> Unit
 ) {
 
     Box(
@@ -58,7 +65,8 @@ fun ComicItem(
             ComicInfo(
                 title = title,
                 author = author,
-                description = description
+                description = description,
+                addToFavourite = addToFavourite
             )
         }
     }
@@ -68,13 +76,33 @@ fun ComicItem(
 fun ComicInfo(
     title: String,
     author: String?,
-    description: String
+    description: String,
+    addToFavourite: () -> Unit
 ) {
+    val isFavourite = remember {
+        mutableStateOf(false)
+    }
+
+    val favouriteColor =  if(isFavourite.value) Color.Yellow else Color.LightGray
+
     Column(
         modifier = Modifier
             .fillMaxHeight()
-            .padding(10.dp)
+            .padding(start = 10.dp, end = 10.dp, bottom = 10.dp, top = 5.dp)
     ) {
+        Row(modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End
+        ) {
+            IconButton(onClick = {
+                addToFavourite()
+                isFavourite.value = !isFavourite.value
+            }) {
+                Icon(imageVector = Icons.Default.Favorite,
+                    contentDescription = stringResource(R.string.written_by),
+                    tint = favouriteColor
+                )
+            }
+        }
         Text(
             text = title,
             style = MaterialTheme.typography.ComicTitle,

@@ -61,8 +61,8 @@ fun ComicsListLazyColumn(
                     modifier = Modifier
                         .clickable {
                             navController.navigate(Screen.ComicsDetailsScreen.route + "?comicsBook=${comics.id}")
-                        }
-
+                        },
+                    addToFavourite = { }
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
