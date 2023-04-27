@@ -17,4 +17,6 @@
     <string name="cant_find_comics">There is no comic book with that name in our library. Check the spelling and try again.</string>
     <string name="comic_cover_placeholder">https://i.pinimg.com/736x/b5/34/df/b534df05c4b06ebd32159b2f9325d83f.jpg</string>
     <string name="logout">Logout</string>
+    <string name="Favourite">Favourite</string>
+
 </resources>

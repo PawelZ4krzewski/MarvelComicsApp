@@ -1,5 +1,6 @@
 package com.example.feature_main.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -61,8 +62,8 @@ fun ComicsListLazyColumn(
                     modifier = Modifier
                         .clickable {
                             navController.navigate(Screen.ComicsDetailsScreen.route + "?comicsBook=${comics.id}")
-                        }
-
+                        },
+                    addToFavourite = { Log.d("KURA", "Button Dodaje do ulubionych")}
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
