@@ -37,6 +37,7 @@ fun ComicListScreen(
     viewModel: ComicListViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
+
     val scaffoldState = rememberScaffoldState()
 
     val topAppBarState = rememberTopAppBarState()
@@ -67,6 +68,9 @@ fun ComicListScreen(
                 comicBooks = state.comicBooks,
                 navController = navController,
                 loadItems = { viewModel.loadComicsPaginated() },
+                addToFavourite = {
+                                 viewModel.onEvent(ComicListEvent.AddComicsToFavourite(it))
+                },
                 pagination = true
             )
         }

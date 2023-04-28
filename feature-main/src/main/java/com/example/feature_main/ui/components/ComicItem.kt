@@ -10,8 +10,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -24,19 +22,21 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.example.feature_main.ui.theme.*
 import com.example.feature_main.R
+import com.example.feature_main.ui.theme.*
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun ComicItem(
+    comicId: Int,
     title: String,
     description: String,
     modifier: Modifier = Modifier,
     author: String?,
     url: String,
+    isFavourite: Boolean,
     cornerRadius: Dp = 7.dp,
-    addToFavourite: () -> Unit
+    addToFavourite: (comicId: Int) -> Unit
 ) {
 
     Box(
@@ -63,9 +63,11 @@ fun ComicItem(
                 )
             }
             ComicInfo(
+                comicId = comicId,
                 title = title,
                 author = author,
                 description = description,
+                isFavourite = isFavourite,
                 addToFavourite = addToFavourite
             )
         }
@@ -74,16 +76,17 @@ fun ComicItem(
 
 @Composable
 fun ComicInfo(
+    comicId: Int,
     title: String,
     author: String?,
     description: String,
-    addToFavourite: () -> Unit
+    isFavourite: Boolean,
+    addToFavourite: (comicId: Int) -> Unit
 ) {
-    val isFavourite = remember {
-        mutableStateOf(false)
-    }
 
-    val favouriteColor =  if(isFavourite.value) Color.Yellow else Color.LightGray
+    val favouriteColor = {
+        if(isFavourite) Red100 else Color.LightGray
+    }
 
     Column(
         modifier = Modifier
@@ -94,12 +97,11 @@ fun ComicInfo(
             horizontalArrangement = Arrangement.End
         ) {
             IconButton(onClick = {
-                addToFavourite()
-                isFavourite.value = !isFavourite.value
+                addToFavourite(comicId)
             }) {
                 Icon(imageVector = Icons.Default.Favorite,
                     contentDescription = stringResource(R.string.written_by),
-                    tint = favouriteColor
+                    tint = favouriteColor.invoke()
                 )
             }
         }
