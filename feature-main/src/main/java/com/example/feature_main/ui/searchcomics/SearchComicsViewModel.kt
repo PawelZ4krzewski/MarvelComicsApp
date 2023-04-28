@@ -44,6 +44,8 @@ class SearchComicsViewModel @Inject constructor(
     private val COMIC_TEXT_KEY = "ComicTextKEY"
     private val SEARCH_COMICS_KEY = "SearchComicListKEY"
 
+    private val currentUserId = Firebase.auth.currentUser?.uid ?: "-1"
+
     private val pref: SharedPreferences =
         app.getSharedPreferences("SearchVMSharedPrefs", Context.MODE_PRIVATE)
     private val editor = pref.edit()
@@ -52,7 +54,6 @@ class SearchComicsViewModel @Inject constructor(
 
     private val _state: MutableState<SearchComicsState> = mutableStateOf(SearchComicsState())
     val state: State<SearchComicsState> = _state
-
 
     init {
 
@@ -75,11 +76,19 @@ class SearchComicsViewModel @Inject constructor(
                 try {
                     val result = repository.searchMarvelComic(query)
                     if (result != null) {
-                        _state.value = state.value.copy(
-                            comicBooks = result.data.results.map { comics -> FavResult(result = comics, isFavourite = false) },
-                            isSearched = true,
-                            isFoundComics = result.data.results.isNotEmpty()
-                        )
+                        repositoryFirebase.getDataFromUser(currentUserId).collectLatest { userComicsData ->
+
+                            _state.value = state.value.copy(
+                                comicBooks = result.data.results.map { comics ->
+                                    FavResult(
+                                        result = comics,
+                                        isFavourite = !userComicsData?.comics?.filter { it.comicId == comics.id.toString()}.isNullOrEmpty()
+                                    )
+                                },
+                                isSearched = true,
+                                isFoundComics = result.data.results.isNotEmpty()
+                            )
+                        }
                         editor.putString(SEARCH_COMICS_KEY, gson.toJson(state.value.comicBooks)).commit()
                     }
                 } catch (e: HttpException) {
