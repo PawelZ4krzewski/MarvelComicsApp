@@ -9,11 +9,16 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.core.data.remote.responses.Result
+import com.example.core.data.remote.firebase.ComicData
+import com.example.core.data.remote.responses.FavResult
+import com.example.core.repository.FirebaseRepository
 import com.example.core.repository.MarvelComicRepositoryImpl
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import javax.inject.Inject
@@ -24,13 +29,15 @@ data class SearchComicsState(
     val isSearchComicHintVisible: Boolean = true,
 
     val isSearched: Boolean = false,
-    val comicBooks: List<Result> = emptyList(),
+    val comicBooks: List<FavResult> = emptyList(),
     val isFoundComics: Boolean = false
 )
 
 @HiltViewModel
 class SearchComicsViewModel @Inject constructor(
     private val repository: MarvelComicRepositoryImpl,
+    private val repositoryFirebase: FirebaseRepository,
+
     app: Application,
 ) : AndroidViewModel(app) {
 
@@ -48,8 +55,9 @@ class SearchComicsViewModel @Inject constructor(
 
 
     init {
+
         val comicsText = pref.getString(COMIC_TEXT_KEY, "") ?: ""
-        val prefsComics = gson.fromJson<List<Result>>(pref.getString(SEARCH_COMICS_KEY, ""), object : TypeToken<List<Result>>() {}.type)
+        val prefsComics = gson.fromJson<List<FavResult>>(pref.getString(SEARCH_COMICS_KEY, ""), object : TypeToken<List<FavResult>>() {}.type)
 
         _state.value = state.value.copy(
             searchComicText = comicsText,
@@ -68,7 +76,7 @@ class SearchComicsViewModel @Inject constructor(
                     val result = repository.searchMarvelComic(query)
                     if (result != null) {
                         _state.value = state.value.copy(
-                            comicBooks = result.data.results,
+                            comicBooks = result.data.results.map { comics -> FavResult(result = comics, isFavourite = false) },
                             isSearched = true,
                             isFoundComics = result.data.results.isNotEmpty()
                         )
@@ -86,7 +94,13 @@ class SearchComicsViewModel @Inject constructor(
         }
     }
 
-
+    fun changeFavComics(comicData: ComicData, userId: String, isDelegate: Boolean){
+        viewModelScope.launch {
+            repositoryFirebase.getDataFromUser(userId).collectLatest {
+                repositoryFirebase.updateDeleteOrCreateFavouriteComics(comicData, it, isDelegate)
+            }
+        }
+    }
     fun onEvent(event: SearchComicsEvent) {
         when (event) {
             is SearchComicsEvent.EnterText -> {
@@ -110,6 +124,33 @@ class SearchComicsViewModel @Inject constructor(
                     isSearched = false,
                     isSearchComicHintVisible = true
                 )
+            }
+            is SearchComicsEvent.AddComicsToFavourite -> {
+
+                _state.value = state.value.copy(
+                    comicBooks = state.value.comicBooks.map { favResult ->
+                        if(favResult.result.id == event.comicsId) {
+                            favResult.isFavourite = !favResult.isFavourite
+
+                            changeFavComics(
+                                comicData = ComicData(
+                                    comicId = favResult.result.id.toString(),
+                                    authors = favResult.result.creators.items.joinToString { creator -> creator.name },
+                                    description = favResult.result.description ?: "",
+                                    image = favResult.result.images?.firstOrNull()?.let { "${it.path}.${it.extension}" },
+                                    title = favResult.result.title,
+                                    url = favResult.result.urls.firstOrNull()?.url ?: ""
+                                ),
+                                userId = Firebase.auth.currentUser?.uid ?: "-1",
+                                isDelegate = !favResult.isFavourite
+                            )
+
+                        }
+                        favResult
+                    }
+                )
+                editor.putString(SEARCH_COMICS_KEY, gson.toJson(state.value.comicBooks)).commit()
+
             }
         }
     }

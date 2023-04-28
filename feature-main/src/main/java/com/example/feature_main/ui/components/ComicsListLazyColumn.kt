@@ -5,23 +5,25 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.core.data.remote.responses.Result
+import com.example.core.data.remote.responses.FavResult
 import com.example.core.util.Screen
 import com.example.feature_main.ui.theme.Red100
 
 @Composable
 fun ComicsListLazyColumn(
-    comicBooks: List<Result>,
+    comicBooks: List<FavResult>,
     navController: NavController,
     loadItems: () -> Unit,
+    addToFavourite: (comicId: Int) -> Unit,
     pagination: Boolean = false,
     endReached: Boolean = false
 ) {
+
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -38,31 +40,41 @@ fun ComicsListLazyColumn(
 
             itemsIndexed(comicBooks) { index, comics ->
 
+                var favourite by remember {
+                    mutableStateOf(comics.isFavourite)
+                }
+
                 if(index == 0){
                     Spacer(modifier = Modifier.height(16.dp))
                 }
 
 
-                val imgUrl = if (comics.images.isNotEmpty()) {
-                    "${comics.images[0].path}.${comics.images[0].extension}"
-                } else {
-                    ""
+                var imgUrl = ""
+                if (!comics.result.images.isNullOrEmpty()) {
+                    comics.result.images?.getOrNull(0)?.let {
+                        imgUrl = "${it.path}.${it.extension}"
+                    }
                 }
 
                 ComicItem(
-                    title = comics.title,
-                    description = comics.description ?: "",
-                    author = if (comics.creators.items.isEmpty()) {
+                    comicId = comics.result.id,
+                    title = comics.result.title,
+                    description = comics.result.description ?: "",
+                    author = if (comics.result.creators.items.isEmpty()) {
                         null
                     } else {
-                        comics.creators.items.joinToString { creator -> creator.name }
+                        comics.result.creators.items.joinToString { creator -> creator.name }
                     },
                     url = imgUrl,
+                    isFavourite = favourite,
                     modifier = Modifier
                         .clickable {
-                            navController.navigate(Screen.ComicsDetailsScreen.route + "?comicsBook=${comics.id}")
+                            navController.navigate(Screen.ComicsDetailsScreen.route + "?comicsBook=${comics.result.id}")
                         },
-                    addToFavourite = { }
+                    addToFavourite = {
+                        addToFavourite(it)
+                        favourite = !favourite
+                    }
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
