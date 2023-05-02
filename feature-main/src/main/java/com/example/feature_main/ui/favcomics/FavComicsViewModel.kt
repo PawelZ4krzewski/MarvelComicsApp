@@ -32,14 +32,12 @@ class FavComicsViewModel @Inject constructor(
 
     fun getFavComics(){
         viewModelScope.launch {
-            viewModelScope.launch {
-                repositoryFirebase.getDataFromUser(Firebase.auth.currentUser?.uid ?: "-1")
-                    .collectLatest { userComicsData ->
-                        _state.value = state.value.copy(
-                            favComicsBooks = userComicsData?.comics ?: emptyList(),
-                        )
-                    }
-            }
+            repositoryFirebase.getDataFromUser(Firebase.auth.currentUser?.uid ?: "-1")
+                .collectLatest { userComicsData ->
+                    _state.value = state.value.copy(
+                        favComicsBooks = userComicsData?.comics ?: emptyList(),
+                    )
+                }
         }
     }
 
