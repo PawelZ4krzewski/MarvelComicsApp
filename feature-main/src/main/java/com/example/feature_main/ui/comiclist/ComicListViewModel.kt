@@ -1,5 +1,6 @@
 package com.example.feature_main.ui.comiclist
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -15,7 +16,6 @@ import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import javax.inject.Inject
 
 data class ComicListState(
@@ -46,7 +46,7 @@ class ComicListViewModel @Inject constructor(
     fun loadComicsPaginated() {
         viewModelScope.launch {
 
-            try {
+            kotlin.runCatching {
 
                 val result = repository.getMarvelComicList(
                     Constants.PAGE_SIZE,
@@ -66,11 +66,8 @@ class ComicListViewModel @Inject constructor(
                         currentPage = state.value.currentPage + 1
                     )
                 }
-
-            } catch (e: HttpException) {
-                _state.value = state.value.copy(
-                    loadError = e.toString()
-                )
+            }.onFailure {
+                Log.e("ComicListViewModel", it.message.toString())
             }
         }
     }

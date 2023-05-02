@@ -13,6 +13,8 @@ import com.example.core.data.remote.firebase.ComicData
 import com.example.core.data.remote.responses.FavResult
 import com.example.core.repository.FirebaseRepository
 import com.example.core.repository.MarvelComicRepositoryImpl
+import com.example.feature_main.util.Constants.Companion.COMIC_TEXT_KEY
+import com.example.feature_main.util.Constants.Companion.SEARCH_COMICS_KEY
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
@@ -20,7 +22,6 @@ import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import javax.inject.Inject
 
 data class SearchComicsState(
@@ -40,9 +41,6 @@ class SearchComicsViewModel @Inject constructor(
 
     app: Application,
 ) : AndroidViewModel(app) {
-
-    private val COMIC_TEXT_KEY = "ComicTextKEY"
-    private val SEARCH_COMICS_KEY = "SearchComicListKEY"
 
     private val currentUserId = Firebase.auth.currentUser?.uid ?: "-1"
 
@@ -73,7 +71,8 @@ class SearchComicsViewModel @Inject constructor(
     fun searchComicsBook(query: String) {
         viewModelScope.launch {
             if (query.isNotEmpty()) {
-                try {
+               kotlin.runCatching {
+
                     val result = repository.searchMarvelComic(query)
                     if (result != null) {
                         repositoryFirebase.getDataFromUser(currentUserId).collectLatest { userComicsData ->
@@ -91,9 +90,9 @@ class SearchComicsViewModel @Inject constructor(
                         }
                         editor.putString(SEARCH_COMICS_KEY, gson.toJson(state.value.comicBooks)).commit()
                     }
-                } catch (e: HttpException) {
-                    Log.e("SearchComicsViewModel", e.toString())
-                }
+                }.onFailure {
+                       Log.e("SearchComicsViewModel", it.message.toString())
+               }
             }else {
                 _state.value = state.value.copy(
                     comicBooks = listOf(),
