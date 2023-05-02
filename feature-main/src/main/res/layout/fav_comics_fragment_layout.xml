@@ -5,15 +5,10 @@
 
     </data>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.example.feature_main.ui.favcomics.fragment.FavComicsFragment">
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvFavComics"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-    </androidx.fragment.app.FragmentContainerView>
+
+
 </layout>
