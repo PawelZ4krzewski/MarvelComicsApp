@@ -25,6 +25,8 @@ import androidx.navigation.navArgument
 import com.example.core.util.Screen
 import com.example.feature_main.R
 import com.example.feature_main.ui.comiclist.ComicListScreen
+import com.example.feature_main.ui.comicsdetails.ComicsDetailsScreen
+import com.example.feature_main.ui.favcomics.FavComicsScreen
 import com.example.feature_main.ui.searchcomics.SearchComicsScreen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -55,6 +57,11 @@ class MainActivity : ComponentActivity() {
                                         name = stringResource(id = R.string.comics_search),
                                         route = Screen.SearchComicListScreen.route,
                                         icon = painterResource(id = R.drawable.search_icon),
+                                    ),
+                                    BottomNavItem(
+                                        name = stringResource(id = R.string.favourite_comics),
+                                        route = Screen.FavComicsScreen.route,
+                                        icon = painterResource(id = R.drawable.anybook),
                                     )
                                 ),
                                 navController = navController,
@@ -85,6 +92,10 @@ fun Navigation(
             SearchComicsScreen(navController = navController)
         }
 
+        composable(Screen.FavComicsScreen.route) {
+            FavComicsScreen(navController = navController)
+        }
+
         composable(
             route = Screen.ComicsDetailsScreen.route + "?comicsBook={comicsBook}",
             arguments = listOf(
@@ -96,7 +107,7 @@ fun Navigation(
                 }
             )
         ) {
-            com.example.feature_main.ui.comicsdetails.ComicsDetailsScreen(navController = navController)
+            ComicsDetailsScreen(navController = navController)
         }
     }
 }

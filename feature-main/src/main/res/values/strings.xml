@@ -2,6 +2,7 @@
     <string name="comic_list">Comics list</string>
     <string name="comics_book_arg">comicsBook</string>
     <string name="comics_search">Comics search</string>
+    <string name="favourite_comics">Favourite Comics</string>
     <string name="marvel_comics">Marvel Comics</string>
     <string name="unknown">Unknown</string>
     <string name="details">Details</string>
@@ -18,5 +19,6 @@
     <string name="comic_cover_placeholder">https://i.pinimg.com/736x/b5/34/df/b534df05c4b06ebd32159b2f9325d83f.jpg</string>
     <string name="logout">Logout</string>
     <string name="Favourite">Favourite</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
