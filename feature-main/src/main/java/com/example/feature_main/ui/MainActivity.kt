@@ -43,7 +43,9 @@ class MainActivity : ComponentActivity() {
                 val isKeyboardOpen by keyboardAsState()
 
                 Scaffold(
-                    modifier = Modifier.statusBarsPadding().systemBarsPadding(),
+                    modifier = Modifier
+                        .statusBarsPadding()
+                        .systemBarsPadding(),
                     bottomBar = {
                         if (!isKeyboardOpen) {
                             BottomNavigationBar(
@@ -61,7 +63,7 @@ class MainActivity : ComponentActivity() {
                                     BottomNavItem(
                                         name = stringResource(id = R.string.favourite_comics),
                                         route = Screen.FavComicsScreen.route,
-                                        icon = painterResource(id = R.drawable.anybook),
+                                        icon = painterResource(id = R.drawable.favourite)
                                     )
                                 ),
                                 navController = navController,
