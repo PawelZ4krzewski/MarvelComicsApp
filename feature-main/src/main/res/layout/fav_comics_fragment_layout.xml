@@ -5,10 +5,29 @@
 
     </data>
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/favourite_comics"
+            android:fontFamily="@font/roboto_bold"
+            android:textSize="28sp"
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp"
+            android:layout_marginHorizontal="15dp"
+            android:textColor="@color/black"
+            />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvFavComics"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
+            android:layout_height="match_parent"
+            android:layout_marginBottom="65dp"
+            />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </layout>

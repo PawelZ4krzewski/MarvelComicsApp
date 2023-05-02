@@ -20,5 +20,8 @@
     <string name="logout">Logout</string>
     <string name="Favourite">Favourite</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">Title</string>
+    <string name="authors">Authors</string>
+    <string name="description">Description</string>
 
 </resources>

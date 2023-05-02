@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.core.data.remote.firebase.ComicData
 import com.example.core.util.Screen
 import com.example.feature_main.databinding.ComicsItemBinding
@@ -27,8 +28,14 @@ class FavComicsAdapter(
         holder.binding.llComicItem.setOnClickListener {
             navController.navigate(Screen.ComicsDetailsScreen.route + "?comicsBook=${comics[position].comicId}")
         }
+
+        Glide.with(holder.binding.ivComicsCover.context)
+            .load(comics[position].image)
+            .centerCrop()
+            .into(holder.binding.ivComicsCover)
+
         holder.binding.tvComicTitle.text = comics[position].title
-        holder.binding.tvAuthors.text = comics[position].authors
+        holder.binding.tvAuthors.text = if(comics[position].authors.isBlank()) "" else "Written by" + comics[position].authors
         holder.binding.tvDescription.text = comics[position].description
     }
 
