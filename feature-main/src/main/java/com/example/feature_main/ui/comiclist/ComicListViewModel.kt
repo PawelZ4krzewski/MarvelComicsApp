@@ -1,5 +1,6 @@
 package com.example.feature_main.ui.comiclist
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -15,11 +16,11 @@ import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import javax.inject.Inject
 
 data class ComicListState(
     val comicBooks: List<FavResult> = emptyList(),
+    val favComicBooks: List<ComicData> = emptyList(),
     val loadError: String = "",
     val isLoading: Boolean = false,
     val currentPage: Int = 0,
@@ -33,6 +34,8 @@ class ComicListViewModel @Inject constructor(
     private val googleLoginManager: GoogleLoginManager,
     ) : ViewModel() {
 
+    private val currentUserId = Firebase.auth.currentUser?.uid ?: "-1"
+
     private val _state = mutableStateOf(ComicListState())
     val state: State<ComicListState> = _state
 
@@ -43,22 +46,28 @@ class ComicListViewModel @Inject constructor(
     fun loadComicsPaginated() {
         viewModelScope.launch {
 
-            try {
+            kotlin.runCatching {
+
                 val result = repository.getMarvelComicList(
                     Constants.PAGE_SIZE,
                     state.value.currentPage * Constants.PAGE_SIZE
                 )
 
-                _state.value = state.value.copy(
-                    comicBooks = state.value.comicBooks + result!!.data.results.map { comics -> FavResult(result = comics, isFavourite = false)},
-                    endReached = state.value.currentPage * Constants.PAGE_SIZE >= result.data.total,
-                    currentPage = state.value.currentPage + 1
-                )
-
-            } catch (e: HttpException) {
-                _state.value = state.value.copy(
-                    loadError = e.toString()
-                )
+                repositoryFirebase.getDataFromUser(currentUserId).collectLatest { userComicsData ->
+                    _state.value = state.value.copy(
+                        favComicBooks = userComicsData?.comics ?: emptyList(),
+                        comicBooks = state.value.comicBooks + result!!.data.results.map { comics ->
+                            FavResult(
+                                result = comics,
+                                isFavourite = !userComicsData?.comics?.filter { it.comicId == comics.id.toString()}.isNullOrEmpty()
+                            )
+                        },
+                        endReached = state.value.currentPage * Constants.PAGE_SIZE >= result.data.total,
+                        currentPage = state.value.currentPage + 1
+                    )
+                }
+            }.onFailure {
+                Log.e("ComicListViewModel", it.message.toString())
             }
         }
     }
@@ -91,15 +100,13 @@ class ComicListViewModel @Inject constructor(
                                     title = favResult.result.title,
                                     url = favResult.result.urls.firstOrNull()?.url ?: ""
                                 ),
-                                userId = Firebase.auth.currentUser?.uid ?: "-1",
+                                userId = currentUserId,
                                 isDelegate = !favResult.isFavourite
                             )
                         }
                         favResult
                     }
                 )
-
-
             }
         }
     }

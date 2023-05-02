@@ -13,6 +13,8 @@ import com.example.core.data.remote.firebase.ComicData
 import com.example.core.data.remote.responses.FavResult
 import com.example.core.repository.FirebaseRepository
 import com.example.core.repository.MarvelComicRepositoryImpl
+import com.example.feature_main.util.Constants.Companion.COMIC_TEXT_KEY
+import com.example.feature_main.util.Constants.Companion.SEARCH_COMICS_KEY
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
@@ -20,7 +22,6 @@ import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import javax.inject.Inject
 
 data class SearchComicsState(
@@ -41,8 +42,7 @@ class SearchComicsViewModel @Inject constructor(
     app: Application,
 ) : AndroidViewModel(app) {
 
-    private val COMIC_TEXT_KEY = "ComicTextKEY"
-    private val SEARCH_COMICS_KEY = "SearchComicListKEY"
+    private val currentUserId = Firebase.auth.currentUser?.uid ?: "-1"
 
     private val pref: SharedPreferences =
         app.getSharedPreferences("SearchVMSharedPrefs", Context.MODE_PRIVATE)
@@ -52,7 +52,6 @@ class SearchComicsViewModel @Inject constructor(
 
     private val _state: MutableState<SearchComicsState> = mutableStateOf(SearchComicsState())
     val state: State<SearchComicsState> = _state
-
 
     init {
 
@@ -72,19 +71,28 @@ class SearchComicsViewModel @Inject constructor(
     fun searchComicsBook(query: String) {
         viewModelScope.launch {
             if (query.isNotEmpty()) {
-                try {
+               kotlin.runCatching {
+
                     val result = repository.searchMarvelComic(query)
                     if (result != null) {
-                        _state.value = state.value.copy(
-                            comicBooks = result.data.results.map { comics -> FavResult(result = comics, isFavourite = false) },
-                            isSearched = true,
-                            isFoundComics = result.data.results.isNotEmpty()
-                        )
+                        repositoryFirebase.getDataFromUser(currentUserId).collectLatest { userComicsData ->
+
+                            _state.value = state.value.copy(
+                                comicBooks = result.data.results.map { comics ->
+                                    FavResult(
+                                        result = comics,
+                                        isFavourite = !userComicsData?.comics?.filter { it.comicId == comics.id.toString()}.isNullOrEmpty()
+                                    )
+                                },
+                                isSearched = true,
+                                isFoundComics = result.data.results.isNotEmpty()
+                            )
+                        }
                         editor.putString(SEARCH_COMICS_KEY, gson.toJson(state.value.comicBooks)).commit()
                     }
-                } catch (e: HttpException) {
-                    Log.e("SearchComicsViewModel", e.toString())
-                }
+                }.onFailure {
+                       Log.e("SearchComicsViewModel", it.message.toString())
+               }
             }else {
                 _state.value = state.value.copy(
                     comicBooks = listOf(),
