@@ -26,6 +26,8 @@ class FavComicsViewModel @Inject constructor(
     private val _state = mutableStateOf(FavComicsState())
     val state: State<FavComicsState> = _state
 
+    private val currentUserId = Firebase.auth.currentUser?.uid ?: "-1"
+
     init {
         getFavComics()
     }
@@ -40,10 +42,22 @@ class FavComicsViewModel @Inject constructor(
                 }
         }
     }
-
+    fun changeFavComics(comicData: ComicData, userId: String, isDelegate: Boolean){
+        viewModelScope.launch {
+            repositoryFirebase.getDataFromUser(userId).collectLatest {
+                repositoryFirebase.updateDeleteOrCreateFavouriteComics(comicData, it, isDelegate)
+            }
+        }
+    }
     fun onEvent(event: FavComicsEvent){
         when(event){
-            is FavComicsEvent.AddComicsToFavourite -> TODO()
+            is FavComicsEvent.AddComicsToFavourite -> {
+                changeFavComics(event.comicData, currentUserId, true)
+
+                _state.value = state.value.copy(
+                    favComicsBooks = state.value.favComicsBooks.filter { it.comicId != event.comicData.comicId }
+                )
+            }
         }
     }
 }
