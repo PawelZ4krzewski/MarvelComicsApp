@@ -18,7 +18,7 @@ fun FavComicsScreen(
     val localContext = LocalContext.current
     AndroidViewBinding(FavComicsFragmentLayoutBinding::inflate){
         val adapter = FavComicsAdapter(state.favComicsBooks, navController, viewModel)
-
+        val a  = 5
         this.rvFavComics.apply{
             this.layoutManager = LinearLayoutManager(localContext)
             this.adapter = adapter
